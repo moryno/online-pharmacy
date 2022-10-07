@@ -1,5 +1,6 @@
 import Announcement from "./Announcement";
 import Filter from "./Filter";
+import Hero from "./Hero";
 import Navbar from "./Navbar";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
       <Navbar />
       <Announcement />
       <Filter />
+      <Hero />
     </div>
   );
 }
