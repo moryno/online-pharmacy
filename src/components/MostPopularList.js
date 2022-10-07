@@ -98,31 +98,14 @@ const MostPopularList = () => {
             </Description>
           </InfoContainer>
         </Slide>
-        <Slide>
-          <ImageContainer>
-            <Image
-              src="https://www.nacds.org/wp-content/uploads/2017/04/Pills-and-Rx-bottle.jpg"
-              alt="productImage"
-            />
-          </ImageContainer>
-          <InfoContainer>
-            <SlideTitle>Omega 3</SlideTitle>
-            <Price>Ksh.1200</Price>
-            <Description>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
-            </Description>
-          </InfoContainer>
-        </Slide>
       </Wrapper>
-      <Arrow>
+      {/* <Arrow>
         {" "}
         <ArrowBack />
       </Arrow>
       <Arrow>
         <ArrowForward />
-      </Arrow>
+      </Arrow> */}
     </Container>
   );
 };
@@ -130,7 +113,7 @@ const MostPopularList = () => {
 export default MostPopularList;
 
 const Container = styled.main`
-  padding: 3.125rem 18.75rem;
+  padding: 3.125rem 12.5rem;
   box-sizing: border-box;
   color: #1e144f;
   position: relative;
@@ -179,6 +162,13 @@ const SlideTitle = styled.h4`
 
 const Description = styled.p`
   margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 `;
 
 const Price = styled.span`

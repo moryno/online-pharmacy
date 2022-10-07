@@ -3,6 +3,8 @@ import Filter from "./Filter";
 import Hero from "./Hero";
 import MostPopularList from "./MostPopularList";
 import Navbar from "./Navbar";
+import Product from "./Product";
+import ProductList from "./ProductList";
 
 function App() {
   return (
@@ -11,7 +13,7 @@ function App() {
       <Announcement />
       <Filter />
       <Hero />
-      <MostPopularList />
+      <ProductList />
     </div>
   );
 }
