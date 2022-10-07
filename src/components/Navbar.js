@@ -114,7 +114,7 @@ const Right = styled.section`
 
 const MenuItems = styled.article`
   cursor: pointer;
-
+  color: #1e144f;
   font-size: 0.9rem;
   &:first-child {
     display: flex;
