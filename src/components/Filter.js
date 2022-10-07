@@ -32,13 +32,13 @@ const Filter = () => {
 export default Filter;
 
 const Container = styled.main`
-  height: 5vh;
-  background-color: #1896ff;
+  height: 10vh;
+
   color: #1e144f;
 `;
 
 const Wrapper = styled.section`
-  padding: 0.625rem 1.25rem;
+  padding: 1.25rem;
   display: flex;
   align-items: center;
 `;

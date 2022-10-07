@@ -41,7 +41,6 @@ export default Navbar;
 
 const Container = styled.main`
   height: 10vh;
-  background-color: teal;
 `;
 
 const Wrapper = styled.section`
@@ -89,6 +88,7 @@ const Input = styled.input`
   padding: 0.8rem;
   border: none;
   border-radius: 5px;
+  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
 `;
 
 const SearchContainer = styled.article`
