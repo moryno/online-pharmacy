@@ -33,7 +33,8 @@ export default Filter;
 
 const Container = styled.main`
   height: 10vh;
-
+  width: 98%;
+  margin: auto;
   color: #1e144f;
 `;
 
