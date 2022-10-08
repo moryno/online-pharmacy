@@ -5,11 +5,12 @@ import MostPopularList from "./MostPopularList";
 import Navbar from "./Navbar";
 import { Product } from "../pages/Product";
 import ProductList from "./ProductList";
+import CategoryList from "../pages/CategoryList";
 
 function App() {
   return (
     <div>
-      <Product />
+      <CategoryList />
     </div>
   );
 }
