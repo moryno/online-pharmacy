@@ -60,7 +60,6 @@ const Wrapper = styled.section`
 const InfoContainer = styled.section`
   flex: 1;
   padding: 3.75rem;
-
   box-sizing: border-box;
 `;
 
