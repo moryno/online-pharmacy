@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Product from "./Product";
+import Products from "./Products";
 
 const ProductList = () => {
   return (
@@ -27,15 +27,7 @@ const ProductList = () => {
         </Category>
       </CategoryContainer>
       <Wrapper>
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
+        <Products />
       </Wrapper>
     </Container>
   );
