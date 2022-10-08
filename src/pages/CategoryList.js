@@ -46,7 +46,9 @@ const CategoryList = ({ input }) => {
 
 export default CategoryList;
 
-const Container = styled.div``;
+const Container = styled.div`
+  color: #1e144f;
+`;
 
 const Title = styled.h1`
   margin: 20px;

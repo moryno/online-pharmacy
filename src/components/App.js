@@ -6,11 +6,12 @@ import Navbar from "./Navbar";
 import { Product } from "../pages/Product";
 import ProductList from "./ProductList";
 import CategoryList from "../pages/CategoryList";
+import { Cart } from "../pages/Cart";
 
 function App() {
   return (
     <div>
-      <CategoryList />
+      <Cart />
     </div>
   );
 }
