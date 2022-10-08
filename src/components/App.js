@@ -7,11 +7,12 @@ import { Product } from "../pages/Product";
 import ProductList from "./ProductList";
 import CategoryList from "../pages/CategoryList";
 import { Cart } from "../pages/Cart";
+import Register from "../pages/Register";
 
 function App() {
   return (
     <div>
-      <Cart />
+      <Register />
     </div>
   );
 }
