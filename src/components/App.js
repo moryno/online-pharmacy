@@ -8,11 +8,12 @@ import ProductList from "./ProductList";
 import CategoryList from "../pages/CategoryList";
 import { Cart } from "../pages/Cart";
 import Register from "../pages/Register";
+import Login from "../pages/Login";
 
 function App() {
   return (
     <div>
-      <Register />
+      <Login />
     </div>
   );
 }

@@ -135,7 +135,6 @@ const SubTitle = styled.span`
 `;
 
 const Description = styled.p`
-  opacity: 0.9;
   line-height: 1.5;
   margin-bottom: 1rem;
   width: 55%;
@@ -169,7 +168,6 @@ const Button = styled.button`
   font-weight: 600;
   margin-bottom: 1rem;
   border: none;
-  border-radius: 5px;
 `;
 const Agreement = styled.p`
   font-size: 12px;
