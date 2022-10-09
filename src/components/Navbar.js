@@ -39,9 +39,7 @@ const Navbar = () => {
 
 export default Navbar;
 
-const Container = styled.main`
-  height: 10vh;
-`;
+const Container = styled.main``;
 
 const Wrapper = styled.section`
   padding: 0.625rem 1.25rem;

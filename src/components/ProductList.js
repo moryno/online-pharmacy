@@ -28,6 +28,23 @@ const ProductList = () => {
       </CategoryContainer>
       <Wrapper>
         <Products />
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+        <Products />
+        <Products />
       </Wrapper>
     </Container>
   );

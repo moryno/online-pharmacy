@@ -7,7 +7,6 @@ const Filter = () => {
       <Wrapper>
         <DropDownContainer>
           <DropDownHeader>Categories</DropDownHeader>
-
           <DropDownList>
             <ListItems>Desktop</ListItems>
             <ListItems>Monitor</ListItems>
@@ -32,8 +31,7 @@ const Filter = () => {
 export default Filter;
 
 const Container = styled.main`
-  height: 10vh;
-  width: 98%;
+  width: 100%;
   margin: auto;
   color: #1e144f;
 `;
