@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import Chart from "../components/Chart";
 import DashboardNavbar from "../components/DashboardNavbar";
+import Featured from "../components/Featured";
 import Sidebar from "../components/Sidebar";
 import Widget from "../components/Widget";
 
@@ -16,6 +18,10 @@ const Dashboard = () => {
           <Widget type="earning" />
           <Widget type="balance" />
         </Widgets>
+        <Charts>
+          <Featured />
+          <Chart />
+        </Charts>
       </HomeContainer>
     </Container>
   );
@@ -32,8 +38,14 @@ const HomeContainer = styled.section`
   flex: 6;
 `;
 
-const Widgets = styled.article`
+const Widgets = styled.section`
   display: flex;
   padding: 1.25rem;
+  gap: 1.25rem;
+`;
+
+const Charts = styled.section`
+  display: flex;
+  padding: 0.3125rem 1.25rem;
   gap: 1.25rem;
 `;
