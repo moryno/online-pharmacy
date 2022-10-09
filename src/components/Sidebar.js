@@ -14,16 +14,19 @@ import SettingsSystemDaydreamIcon from "@mui/icons-material/SettingsSystemDaydre
 import PsychologyIcon from "@mui/icons-material/Psychology";
 import LogoutIcon from "@mui/icons-material/Logout";
 import StoreMallDirectoryIcon from "@mui/icons-material/StoreMallDirectory";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
     <Container>
       <Top>
         <Image src={Medication} />
-        <Logo>
-          med<FirstSpan>ic</FirstSpan>
-          <SecondSpan>ine</SecondSpan>
-        </Logo>
+        <Link to="/admin">
+          <Logo>
+            med<FirstSpan>ic</FirstSpan>
+            <SecondSpan>ine</SecondSpan>
+          </Logo>
+        </Link>
       </Top>
       <Hr />
       <Center>
@@ -34,14 +37,18 @@ const Sidebar = () => {
             <ItemSpan>Dashboard</ItemSpan>
           </Item>
           <Title>LISTS</Title>
-          <Item>
-            <PersonOutlineOutlined />
-            <ItemSpan>Users</ItemSpan>
-          </Item>
-          <Item>
-            <StoreMallDirectoryIcon />
-            <ItemSpan>Products</ItemSpan>
-          </Item>
+          <Link to="/admin/users">
+            <Item>
+              <PersonOutlineOutlined />
+              <ItemSpan>Users</ItemSpan>
+            </Item>
+          </Link>
+          <Link to="/admin/products">
+            <Item>
+              <StoreMallDirectoryIcon />
+              <ItemSpan>Products</ItemSpan>
+            </Item>
+          </Link>
           <Item>
             <CreditCard />
             <ItemSpan>Orders</ItemSpan>
@@ -107,6 +114,7 @@ const Logo = styled.span`
   color: #1896ff;
   font-size: 1.25rem;
   font-weight: bold;
+  cursor: pointer;
 `;
 
 const Image = styled.img`
