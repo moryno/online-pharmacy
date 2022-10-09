@@ -7,5 +7,5 @@ const Chart = () => {
 export default Chart;
 
 const Container = styled.main`
-  flex: 4;
+  flex: 5;
 `;
