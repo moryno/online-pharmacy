@@ -84,9 +84,12 @@ const Input = styled.input`
   width: 100%;
   box-sizing: border-box;
   padding: 0.8rem;
-  border: none;
   border-radius: 5px;
-  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+  border: 0.8px solid rgb(230, 227, 227);
+  outline: none;
+  &::placeholder {
+    font-size: 12px;
+  }
 `;
 
 const SearchContainer = styled.article`

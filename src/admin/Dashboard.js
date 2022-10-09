@@ -1,12 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import DashboardNavbar from "../components/DashboardNavbar";
 import Sidebar from "../components/Sidebar";
 
 const Dashboard = () => {
   return (
     <Container>
       <Sidebar />
-      <HomeContainer>Container</HomeContainer>
+      <HomeContainer>
+        <DashboardNavbar />
+      </HomeContainer>
     </Container>
   );
 };

@@ -91,9 +91,9 @@ const Input = styled.input`
   width: 100%;
   box-sizing: border-box;
   padding: 1rem;
-  border: none;
+
   border-radius: 0.3rem;
-  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+  border: 0.8px solid rgb(230, 227, 227);
 `;
 
 const SearchContainer = styled.article`
