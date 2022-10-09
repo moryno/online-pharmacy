@@ -1,22 +1,29 @@
 import { DriveFolderUploadOutlined } from "@mui/icons-material";
+import { useState } from "react";
 import styled from "styled-components";
 import DashboardNavbar from "../components/DashboardNavbar";
 import Sidebar from "../components/Sidebar";
 
-const New = () => {
+const New = ({ inputs, title }) => {
+  const [file, setFile] = useState("");
+
   return (
     <Container>
       <Sidebar />
       <NewContainer>
         <DashboardNavbar />
         <Top>
-          <Title>Add New User</Title>
+          <Title>{title}</Title>
         </Top>
         <Bottom>
           <Left>
             {" "}
             <Image
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+              src={
+                file
+                  ? URL.createObjectURL(file)
+                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+              }
               alt="ItemImg"
             />
           </Left>
@@ -27,36 +34,20 @@ const New = () => {
                   Image:{" "}
                   <DriveFolderUploadOutlined style={{ cursor: "pointer" }} />
                 </Label>
-                <Input id="image" type="file" style={{ display: "none " }} />
+                <Input
+                  id="image"
+                  type="file"
+                  onChange={(event) => setFile(event.target.files[0])}
+                  style={{ display: "none " }}
+                />
               </FormInput>
-              <FormInput>
-                <Label>Username</Label>
-                <Input type="text" placeholder="username" />
-              </FormInput>
-              <FormInput>
-                <Label>Full Name</Label>
-                <Input type="text" placeholder="full name" />
-              </FormInput>
-              <FormInput>
-                <Label>Email</Label>
-                <Input type="email" placeholder="email" />
-              </FormInput>
-              <FormInput>
-                <Label>Phone</Label>
-                <Input type="text" placeholder="phone" />
-              </FormInput>
-              <FormInput>
-                <Label>Password</Label>
-                <Input type="password" placeholder="password" />
-              </FormInput>
-              <FormInput>
-                <Label>Address</Label>
-                <Input type="text" placeholder="address" />
-              </FormInput>
-              <FormInput>
-                <Label>Street</Label>
-                <Input type="text" placeholder="street" />
-              </FormInput>
+              {inputs.map((input) => (
+                <FormInput key={input.id}>
+                  <Label>{input.label}</Label>
+                  <Input type={input.type} placeholder={input.placeholder} />
+                </FormInput>
+              ))}
+
               <Button>Send</Button>
             </Form>
           </Right>

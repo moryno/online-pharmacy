@@ -9,6 +9,7 @@ import Dashboard from "../admin/Dashboard";
 import List from "../admin/List";
 import Single from "../admin/Single";
 import New from "../admin/New";
+import { productInputs, userInputs } from "../formsource";
 
 function App() {
   const user = false;
@@ -31,12 +32,18 @@ function App() {
             <Route path="users">
               <Route index element={<List />} />
               <Route path=":userId" element={<Single />} />
-              <Route path="new" element={<New />} />
+              <Route
+                path="new"
+                element={<New inputs={userInputs} title="Add New User" />}
+              />
             </Route>
             <Route path="products">
               <Route index element={<List />} />
               <Route path=":productId" element={<Single />} />
-              <Route path="new" element={<New />} />
+              <Route
+                path="new"
+                element={<New inputs={productInputs} title="Add New Product" />}
+              />
             </Route>
           </Route>
         </Route>
