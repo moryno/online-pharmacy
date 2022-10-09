@@ -23,6 +23,12 @@ const DataTable = () => {
   ];
   return (
     <Container>
+      <TitleContainer>
+        Add New User
+        <Link to="/admin/users/new">
+          <LinkText>Add New</LinkText>
+        </Link>
+      </TitleContainer>
       <DataGrid
         rows={userRow}
         columns={userColumns.concat(actionColumn)}
@@ -60,5 +66,25 @@ const DeleteButton = styled.div`
   border-radius: 5px;
   color: crimson;
   background-color: rgba(255, 0, 0, 0.2);
+  cursor: pointer;
+`;
+
+const TitleContainer = styled.article`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 1.25rem;
+  color: gray;
+  margin-bottom: 1.25rem;
+`;
+
+const LinkText = styled.span`
+  color: green;
+  font-size: 1rem;
+  font-weight: 400;
+  border: 1px solid green;
+  padding: 5px;
+  border-radius: 5px;
   cursor: pointer;
 `;
