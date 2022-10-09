@@ -1,4 +1,5 @@
 import { DataGrid } from "@mui/x-data-grid";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { userColumns, userRow } from "../datatablesource";
 
@@ -11,7 +12,9 @@ const DataTable = () => {
       renderCell: () => {
         return (
           <ActionCell>
-            <ViewButton>View</ViewButton>
+            <Link to="/admin/users/test">
+              <ViewButton>View</ViewButton>
+            </Link>
             <DeleteButton>Delete</DeleteButton>
           </ActionCell>
         );
