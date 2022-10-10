@@ -34,12 +34,12 @@ const Navbar = () => {
               />
             </MenuItems>
           </NavLink>
-          <MenuItems>
+          <CartItem>
             <Badge badgeContent={1} color="primary">
               <ShoppingCartOutlined />
             </Badge>
             <Cart>Cart</Cart>
-          </MenuItems>
+          </CartItem>
         </Right>
       </Wrapper>
     </Container>
@@ -130,15 +130,18 @@ const MenuItems = styled.article`
     display: flex;
     flex-direction: column;
   }
-  &:last-child {
-    display: flex;
-    align-items: center;
-    background-color: #1896ff;
-    border: none;
-    border-radius: 5px;
-    padding: 0.3rem 1rem;
-    color: #eff8ff;
-  }
+`;
+const CartItem = styled.article`
+  cursor: pointer;
+  color: #1e144f;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  background-color: #1896ff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.3rem 1rem;
+  color: #eff8ff;
 `;
 
 const Profile = styled.img`

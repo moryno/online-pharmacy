@@ -101,6 +101,7 @@ const SearchContainer = styled.article`
   padding: 1rem;
   background-image: linear-gradient(#ffb447, #fea117);
   right: 0;
+  color: #235543;
   border-top-right-radius: 0.3rem;
   border-bottom-right-radius: 0.3rem;
 `;
@@ -146,7 +147,7 @@ const Stats = styled.div`
   align-items: center;
   &:first-child {
     background-image: linear-gradient(#ffb447, #fea117);
-    color: #eff8ff;
+    color: #235543;
   }
   &:last-child {
     background-color: #1896ff;
