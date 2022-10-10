@@ -53,7 +53,7 @@ const ProductList = () => {
 export default ProductList;
 
 const Container = styled.main`
-  padding: 0 12.5rem 3.125rem;
+  padding: 3.125rem 12.5rem;
   display: flex;
   color: #1e144f;
   align-items: center;

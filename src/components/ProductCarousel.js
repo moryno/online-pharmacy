@@ -1,17 +1,8 @@
-import {
-  ArrowBack,
-  ArrowForward,
-  ArrowLeftOutlined,
-  ArrowLeftSharp,
-  ArrowLeftTwoTone,
-  ArrowRightOutlined,
-  ArrowRightTwoTone,
-} from "@material-ui/icons";
+import { ArrowBack, ArrowForward } from "@material-ui/icons";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { sliderItems } from "../Helpers/data";
 
-const MostPopularList = () => {
+const ProductCarousel = ({ sliderItems, title }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const handleClick = (direction) => {
     if (direction === "left") {
@@ -23,37 +14,14 @@ const MostPopularList = () => {
   return (
     <Container>
       <Top>
-        <Title>Shop common medications</Title>
+        <Title>{title}</Title>
+        <SeeMore>See more</SeeMore>
       </Top>
       <Bottom>
         <Arrow direction={"left"} onClick={() => handleClick("left")}>
           <ArrowBack />
         </Arrow>
         <Wrapper slideIndex={slideIndex}>
-          {sliderItems.map((item) => (
-            <Slide key={item.id}>
-              <ImageContainer>
-                <Image src={item.img} alt="productImage" />
-              </ImageContainer>
-              <InfoContainer>
-                <SlideTitle>{item.title}</SlideTitle>
-                <Price>Ksh.1200</Price>
-                <Description>{item.description}</Description>
-              </InfoContainer>
-            </Slide>
-          ))}
-          {sliderItems.map((item) => (
-            <Slide key={item.id}>
-              <ImageContainer>
-                <Image src={item.img} alt="productImage" />
-              </ImageContainer>
-              <InfoContainer>
-                <SlideTitle>{item.title}</SlideTitle>
-                <Price>Ksh.1200</Price>
-                <Description>{item.description}</Description>
-              </InfoContainer>
-            </Slide>
-          ))}
           {sliderItems.map((item) => (
             <Slide key={item.id}>
               <ImageContainer>
@@ -75,16 +43,13 @@ const MostPopularList = () => {
   );
 };
 
-export default MostPopularList;
+export default ProductCarousel;
 
 const Container = styled.main`
-  padding: 3.125rem 0;
-  // box-sizing: border-box;
+  margin-top: 3.125rem;
+  box-sizing: border-box;
   color: #1e144f;
-  // position: relative;
-  // overflow: hidden;
-
-  width: 100vw;
+  width: 100%;
 `;
 
 const Top = styled.section`
@@ -92,8 +57,9 @@ const Top = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
+  margin: auto;
   margin-bottom: 1rem;
+  position: relative;
 `;
 const Bottom = styled.section`
   margin: 0 auto;
@@ -102,9 +68,9 @@ const Bottom = styled.section`
   display: flex;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 `;
 const Wrapper = styled.section`
-  // margin-top: 1rem;
   height: 100%;
   gap: 1rem;
   display: flex;
@@ -168,8 +134,8 @@ const Arrow = styled.div`
   width: 2.5rem;
   height: 2.5rem;
   background-color: ${(props) =>
-    props.direction === "left" ? "#FFFFFF" : "#1F9AFF"};
-  color: ${(props) => (props.direction === "left" ? "#1F9AFF" : "#eff8ff")};
+    props.direction === "left" ? "#FFFFFF" : "#1896ff"};
+  color: ${(props) => (props.direction === "left" ? "#1896ff" : "#eff8ff")};
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -180,6 +146,13 @@ const Arrow = styled.div`
   right: ${(props) => props.direction === "right" && "45%"};
   margin: auto;
   cursor: pointer;
-  opacity: 0.5;
   z-index: 2;
+`;
+
+const SeeMore = styled.span`
+  position: absolute;
+  top: 0;
+  right: 2%;
+  font-weight: 500;
+  cursor: pointer;
 `;
