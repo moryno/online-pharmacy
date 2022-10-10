@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Register = () => {
@@ -65,7 +66,12 @@ const Register = () => {
             </Agreement>
             <Button>Register</Button>
           </Form>
-          <Login>Already have an account?</Login>
+          <Login>
+            Already have an account?
+            <Link to="/login">
+              <Span>Sign in</Span>
+            </Link>
+          </Login>
         </RightWrapper>
       </Right>
     </Container>
@@ -76,6 +82,7 @@ export default Register;
 
 const Container = styled.main`
   color: #1e144f;
+  background-color: #f6f7fb;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -86,7 +93,6 @@ const Left = styled.section`
   flex: 0.5;
   background-color: #1896ff;
   height: 100%;
-
   flex-direction: column;
 `;
 
@@ -157,6 +163,9 @@ const Input = styled.input`
   margin: 1.25rem 10px 0 0;
   padding: 10px;
   outline: none;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid lightgray;
 `;
 
 const Button = styled.button`
@@ -176,3 +185,8 @@ const Agreement = styled.p`
 `;
 
 const Login = styled.span``;
+
+const Span = styled.span`
+  color: #e95568;
+  cursor: pointer;
+`;

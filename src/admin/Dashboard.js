@@ -37,6 +37,7 @@ export default Dashboard;
 const Container = styled.main`
   display: flex;
   color: #1e144f;
+  background-color: #f6f7fb;
 `;
 
 const HomeContainer = styled.section`

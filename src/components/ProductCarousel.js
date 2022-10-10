@@ -85,6 +85,8 @@ const Slide = styled.article`
   border: 0.5px solid lightgray;
   width: 15.7rem;
   height: 22rem;
+
+  background-color: #fff;
   align-items: center;
 `;
 
@@ -151,6 +153,7 @@ const Arrow = styled.div`
 
 const SeeMore = styled.span`
   position: absolute;
+  color: #1896ff;
   top: 0;
   right: 2%;
   font-weight: 500;

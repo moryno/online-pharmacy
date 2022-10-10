@@ -9,10 +9,11 @@ import Instructions from "../components/Instructions";
 import OurPromise from "../components/OurPromise";
 import ProductCarousel from "../components/ProductCarousel";
 import { sliderItems } from "../Helpers/data";
+import styled from "styled-components";
 
 const Home = () => {
   return (
-    <div>
+    <Container>
       <Navbar />
       <Announcement />
       <Filter />
@@ -26,8 +27,12 @@ const Home = () => {
       <ProductList />
       <OurPromise />
       <Footer />
-    </div>
+    </Container>
   );
 };
 
 export default Home;
+
+const Container = styled.main`
+  background-color: #f6f7fb;
+`;
