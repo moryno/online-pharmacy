@@ -7,10 +7,10 @@ import { mobile } from "../responsive";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 
-const CategoryList = ({ input }) => {
+const CategoryList = () => {
   const { category } = useParams();
   const [filters, setFilters] = useState("");
-  const [sort, setSort] = useState("");
+  const [sort, setSort] = useState("all");
 
   return (
     <Container>
@@ -21,7 +21,7 @@ const CategoryList = ({ input }) => {
         <Filter>
           <FilterText>Filter Products:</FilterText>
           <Select
-            name="brands"
+            name="newness"
             onChange={(event) => setFilters(event.target.value)}
           >
             <Option value="latest">Latest</Option>
@@ -37,8 +37,7 @@ const CategoryList = ({ input }) => {
           </Select>
         </Filter>
       </FilterContainer>
-      <Products cat={category} filters={filters} sort={sort} />
-
+      <Products category={category} filters={filters} sort={sort} />
       <Footer />
     </Container>
   );

@@ -1,25 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
-const Product = () => {
-  return (
-    <Card>
+const Product = ({ category, filters, sort }) => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const { data } = await axios.get(
+          category
+            ? `http://localhost:3000/products?category=${category}`
+            : "http://localhost:3000/products"
+        );
+        setProducts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProducts();
+  }, [category]);
+
+  const filteredProduct = useEffect(() => {
+    if (filters === "latest") {
+      setProducts((prev) =>
+        [...prev].sort((a, b) => b.created_at - a.created_at)
+      );
+    } else if (filters === "oldest") {
+      setProducts((prev) =>
+        [...prev].sort((a, b) => a.created_at - b.created_at)
+      );
+    }
+  }, [filters]);
+
+  return products.map((product) => (
+    <Card key={product.id}>
       <ImageContainer>
-        <Image
-          src="https://www.nacds.org/wp-content/uploads/2017/04/Pills-and-Rx-bottle.jpg"
-          alt="productImage"
-        />
+        <Image src={product.image} alt="productImage" />
       </ImageContainer>
       <InfoContainer>
         <Category>
-          <CategoryTitle>Female </CategoryTitle>
-          <CategoryTitle> Lotion </CategoryTitle>
+          <CategoryTitle>{product.categories}</CategoryTitle>
         </Category>
-        <Title>Omega 3</Title>
-        <Price>Ksh.1200</Price>
+        <Title>{product.title}</Title>
+        <Price>{product.price}</Price>
       </InfoContainer>
     </Card>
-  );
+  ));
 };
 
 export default Product;
@@ -29,6 +56,7 @@ const Card = styled.article`
   margin-bottom: 1rem;
   border-radius: 5px;
   color: #1e144f;
+  background-color: #fff;
 `;
 
 const ImageContainer = styled.article`
