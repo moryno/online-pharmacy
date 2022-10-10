@@ -7,6 +7,7 @@ import MostPopularList from "../components/MostPopularList";
 import Navbar from "../components/Navbar";
 import ProductList from "../components/ProductList";
 import Instructions from "../components/Instructions";
+import OurPromise from "../components/OurPromise";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
       <Filter />
       <Hero />
       <Instructions />
+      <OurPromise />
       <MostPopularList />
       <ProductList />
       <Footer />
