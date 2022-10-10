@@ -61,7 +61,7 @@ export default Settings;
 const Container = styled.main`
   width: 100%;
   height: 100vh;
-
+  background-color: #f6f7fb;
   color: #1e144f;
 `;
 
@@ -82,8 +82,10 @@ const Title = styled.h1`
 `;
 
 const Bottom = styled.section`
+  width: 40%;
+  margin: auto;
   padding: 1.25rem;
-  margin: 1.25rem;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -129,6 +131,7 @@ const Input = styled.input`
   width: 100%;
   border: none;
   padding: 5px;
+  background-color: transparent;
   border-bottom: 1px solid lightgray;
 `;
 

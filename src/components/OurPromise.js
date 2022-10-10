@@ -1,4 +1,3 @@
-import { MonetizationOnOutlined } from "@material-ui/icons";
 import styled from "styled-components";
 import { ourPromise } from "../Helpers/promiseSource";
 

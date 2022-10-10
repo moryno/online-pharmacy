@@ -13,7 +13,7 @@ import { productInputs, userInputs } from "../Helpers/formsource";
 import Settings from "../pages/Settings";
 
 function App() {
-  const user = false;
+  const user = true;
   return (
     <Router>
       <Routes>

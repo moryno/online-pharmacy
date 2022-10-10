@@ -10,10 +10,12 @@ const Navbar = () => {
       <Wrapper>
         <Left>
           <Image src={Medication} />
-          <Logo>
-            med<FirstSpan>ic</FirstSpan>
-            <SecondSpan>ine</SecondSpan>
-          </Logo>
+          <NavLink to="/">
+            <Logo>
+              med<FirstSpan>ic</FirstSpan>
+              <SecondSpan>ine</SecondSpan>
+            </Logo>
+          </NavLink>
         </Left>
         <Center>
           <Input />
