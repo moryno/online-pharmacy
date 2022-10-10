@@ -127,7 +127,10 @@ const Wrapper = styled.section`
   margin-top: 1rem;
 `;
 
-const Title = styled.h1``;
+const Title = styled.h1`
+  font-size: 1.25rem;
+  text-align: center;
+`;
 
 const Slide = styled.article`
   width: 18%;
