@@ -26,6 +26,7 @@ const Container = styled.main`
   justify-content: center;
   padding: 1.25rem;
   background-color: #f6f7fb;
+  box-sizing: border-box;
 `;
 
 const Wrapper = styled.section`
