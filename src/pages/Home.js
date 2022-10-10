@@ -17,9 +17,9 @@ const Home = () => {
       <Filter />
       <Hero />
       <Instructions />
-      <OurPromise />
       <MostPopularList />
       <ProductList />
+      <OurPromise />
       <Footer />
     </div>
   );

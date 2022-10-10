@@ -53,7 +53,7 @@ const ProductList = () => {
 export default ProductList;
 
 const Container = styled.main`
-  padding: 3.125rem 12.5rem;
+  padding: 0 12.5rem 3.125rem;
   display: flex;
   color: #1e144f;
   align-items: center;
@@ -70,6 +70,7 @@ const Wrapper = styled.section`
 
 const Title = styled.h1`
   margin-bottom: 2rem;
+  font-size: 1.25rem;
 `;
 
 const CategoryContainer = styled.article`
