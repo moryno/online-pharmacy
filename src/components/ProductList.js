@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { publicRequest } from "../Helpers/requestMethods";
 import Products from "./Products";
 
 const ProductList = ({ filters, category, sort }) => {
@@ -9,10 +10,8 @@ const ProductList = ({ filters, category, sort }) => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const { data } = await axios.get(
-          category
-            ? `http://localhost:3000/products?category=${category}`
-            : "http://localhost:3000/products"
+        const { data } = await publicRequest.get(
+          category ? `/products?category=${category}` : "/products"
         );
         setProducts(data);
       } catch (error) {

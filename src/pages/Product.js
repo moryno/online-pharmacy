@@ -6,7 +6,7 @@ import { Add, Remove } from "@material-ui/icons";
 import { mobile } from "../responsive";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { publicRequest } from "../Helpers/requestMethods";
 // import { publicRequest } from "../requestMethods";
 // import {addProduct} from "../redux/cartRedux";
 // import { useDispatch } from "react-redux";
@@ -21,9 +21,7 @@ export const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const { data } = await axios.get(
-          `http://localhost:3000/products/${id}`
-        );
+        const { data } = await publicRequest.get(`/products/${id}`);
         setProduct(data);
       } catch (err) {
         console.log(err);
