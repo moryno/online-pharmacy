@@ -10,9 +10,10 @@ import List from "../admin/List";
 import Single from "../admin/Single";
 import New from "../admin/New";
 import { productInputs, userInputs } from "../formsource";
+import Settings from "../pages/Settings";
 
 function App() {
-  const user = false;
+  const user = true;
   return (
     <Router>
       <Routes>
@@ -21,6 +22,7 @@ function App() {
           <Route path="cart" element={<Cart />} />
           <Route path="login" element={user ? <Home /> : <Login />} />
           <Route path="register" element={user ? <Home /> : <Register />} />
+          <Route path="settings" element={user ? <Settings /> : <Register />} />
           <Route path="products">
             <Route path=":category" element={<CategoryList />} />
           </Route>

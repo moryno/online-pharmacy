@@ -1,5 +1,6 @@
 import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Medication from "../assests/images/medication.png";
 
@@ -25,12 +26,14 @@ const Navbar = () => {
             <SignText>Hello, sign in</SignText>
             <SignAccount>Account & Lists</SignAccount>
           </MenuItems>
-          <MenuItems>
-            <Profile
-              src="https://e7.pngegg.com/pngimages/1011/702/png-clipart-computer-icons-graphics-iconfinder-administrator-icon-monochrome-black.png"
-              alt="adminImage"
-            />
-          </MenuItems>
+          <NavLink to="/settings">
+            <MenuItems>
+              <Profile
+                src="https://e7.pngegg.com/pngimages/1011/702/png-clipart-computer-icons-graphics-iconfinder-administrator-icon-monochrome-black.png"
+                alt="adminImage"
+              />
+            </MenuItems>
+          </NavLink>
           <MenuItems>
             <Badge badgeContent={1} color="primary">
               <ShoppingCartOutlined />
