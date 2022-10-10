@@ -1,7 +1,7 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { userColumns, userRow } from "../datatablesource";
+import { userColumns, userRow } from "../Helpers/datatablesource";
 
 const DataTable = () => {
   const actionColumn = [

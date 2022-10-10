@@ -9,7 +9,7 @@ import Dashboard from "../admin/Dashboard";
 import List from "../admin/List";
 import Single from "../admin/Single";
 import New from "../admin/New";
-import { productInputs, userInputs } from "../formsource";
+import { productInputs, userInputs } from "../Helpers/formsource";
 import Settings from "../pages/Settings";
 
 function App() {
