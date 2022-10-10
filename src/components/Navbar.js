@@ -26,6 +26,12 @@ const Navbar = () => {
             <SignAccount>Account & Lists</SignAccount>
           </MenuItems>
           <MenuItems>
+            <Profile
+              src="https://e7.pngegg.com/pngimages/1011/702/png-clipart-computer-icons-graphics-iconfinder-administrator-icon-monochrome-black.png"
+              alt="adminImage"
+            />
+          </MenuItems>
+          <MenuItems>
             <Badge badgeContent={1} color="primary">
               <ShoppingCartOutlined />
             </Badge>
@@ -131,6 +137,13 @@ const MenuItems = styled.article`
     color: #eff8ff;
   }
 `;
+
+const Profile = styled.img`
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+`;
+
 const SignText = styled.span``;
 
 const SignAccount = styled.span`
