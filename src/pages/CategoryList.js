@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
-import Products from "../components/Products";
 import { Footer } from "../components/Footer";
 import { mobile } from "../responsive";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import ProductList from "../components/ProductList";
 
 const CategoryList = () => {
   const { category } = useParams();
@@ -37,7 +37,7 @@ const CategoryList = () => {
           </Select>
         </Filter>
       </FilterContainer>
-      <Products category={category} filters={filters} sort={sort} />
+      <ProductList category={category} filters={filters} sort={sort} />
       <Footer />
     </Container>
   );

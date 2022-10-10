@@ -1,8 +1,38 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Products from "./Products";
 
-const ProductList = () => {
+const ProductList = ({ filters, category, sort }) => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const { data } = await axios.get(
+          category
+            ? `http://localhost:3000/products?category=${category}`
+            : "http://localhost:3000/products"
+        );
+        setProducts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProducts();
+  }, [category]);
+
+  useEffect(() => {
+    if (filters === "latest") {
+      setProducts((prev) =>
+        [...prev].sort((a, b) => b.created_at - a.created_at)
+      );
+    } else if (filters === "oldest") {
+      setProducts((prev) =>
+        [...prev].sort((a, b) => a.created_at - b.created_at)
+      );
+    }
+  }, [filters]);
   return (
     <Container>
       <Title>Browse medicines & health products</Title>
@@ -27,7 +57,9 @@ const ProductList = () => {
         </Category>
       </CategoryContainer>
       <Wrapper>
-        <Products />
+        {products.map((product) => (
+          <Products product={product} key={product.id} />
+        ))}
       </Wrapper>
     </Container>
   );
