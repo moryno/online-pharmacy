@@ -1,111 +1,76 @@
 import {
   ArrowBack,
   ArrowForward,
+  ArrowLeftOutlined,
   ArrowLeftSharp,
   ArrowLeftTwoTone,
+  ArrowRightOutlined,
   ArrowRightTwoTone,
 } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { sliderItems } from "../Helpers/data";
 
 const MostPopularList = () => {
+  const [slideIndex, setSlideIndex] = useState(0);
+  const handleClick = (direction) => {
+    if (direction === "left") {
+      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+    } else {
+      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+    }
+  };
   return (
     <Container>
-      <Title>Shop common medications</Title>
-      <Wrapper>
-        <Slide>
-          <ImageContainer>
-            <Image
-              src="https://www.nacds.org/wp-content/uploads/2017/04/Pills-and-Rx-bottle.jpg"
-              alt="productImage"
-            />
-          </ImageContainer>
-          <InfoContainer>
-            <SlideTitle>Omega 3</SlideTitle>
-            <Price>Ksh.1200</Price>
-            <Description>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
-            </Description>
-          </InfoContainer>
-        </Slide>
-        <Slide>
-          <ImageContainer>
-            <Image
-              src="https://www.nacds.org/wp-content/uploads/2017/04/Pills-and-Rx-bottle.jpg"
-              alt="productImage"
-            />
-          </ImageContainer>
-          <InfoContainer>
-            <SlideTitle>Omega 3</SlideTitle>
-            <Price>Ksh.1200</Price>
-            <Description>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
-            </Description>
-          </InfoContainer>
-        </Slide>
-        <Slide>
-          <ImageContainer>
-            <Image
-              src="https://www.nacds.org/wp-content/uploads/2017/04/Pills-and-Rx-bottle.jpg"
-              alt="productImage"
-            />
-          </ImageContainer>
-          <InfoContainer>
-            <SlideTitle>Omega 3</SlideTitle>
-            <Price>Ksh.1200</Price>
-            <Description>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
-            </Description>
-          </InfoContainer>
-        </Slide>
-        <Slide>
-          <ImageContainer>
-            <Image
-              src="https://www.nacds.org/wp-content/uploads/2017/04/Pills-and-Rx-bottle.jpg"
-              alt="productImage"
-            />
-          </ImageContainer>
-          <InfoContainer>
-            <SlideTitle>Omega 3</SlideTitle>
-            <Price>Ksh.1200</Price>
-            <Description>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
-            </Description>
-          </InfoContainer>
-        </Slide>
-        <Slide>
-          <ImageContainer>
-            <Image
-              src="https://www.nacds.org/wp-content/uploads/2017/04/Pills-and-Rx-bottle.jpg"
-              alt="productImage"
-            />
-          </ImageContainer>
-          <InfoContainer>
-            <SlideTitle>Omega 3</SlideTitle>
-            <Price>Ksh.1200</Price>
-            <Description>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
-            </Description>
-          </InfoContainer>
-        </Slide>
-      </Wrapper>
-      {/* <Arrow>
-        {" "}
-        <ArrowBack />
-      </Arrow>
-      <Arrow>
-        <ArrowForward />
-      </Arrow> */}
+      <Top>
+        <Title>Shop common medications</Title>
+      </Top>
+      <Bottom>
+        <Arrow direction={"left"} onClick={() => handleClick("left")}>
+          <ArrowBack />
+        </Arrow>
+        <Wrapper slideIndex={slideIndex}>
+          {sliderItems.map((item) => (
+            <Slide key={item.id}>
+              <ImageContainer>
+                <Image src={item.img} alt="productImage" />
+              </ImageContainer>
+              <InfoContainer>
+                <SlideTitle>{item.title}</SlideTitle>
+                <Price>Ksh.1200</Price>
+                <Description>{item.description}</Description>
+              </InfoContainer>
+            </Slide>
+          ))}
+          {sliderItems.map((item) => (
+            <Slide key={item.id}>
+              <ImageContainer>
+                <Image src={item.img} alt="productImage" />
+              </ImageContainer>
+              <InfoContainer>
+                <SlideTitle>{item.title}</SlideTitle>
+                <Price>Ksh.1200</Price>
+                <Description>{item.description}</Description>
+              </InfoContainer>
+            </Slide>
+          ))}
+          {sliderItems.map((item) => (
+            <Slide key={item.id}>
+              <ImageContainer>
+                <Image src={item.img} alt="productImage" />
+              </ImageContainer>
+              <InfoContainer>
+                <SlideTitle>{item.title}</SlideTitle>
+                <Price>Ksh.1200</Price>
+                <Description>{item.description}</Description>
+              </InfoContainer>
+            </Slide>
+          ))}
+        </Wrapper>
+        <Arrow direction={"right"} onClick={() => handleClick("right")}>
+          <ArrowForward />
+        </Arrow>
+      </Bottom>
     </Container>
   );
 };
@@ -113,34 +78,53 @@ const MostPopularList = () => {
 export default MostPopularList;
 
 const Container = styled.main`
-  padding: 3.125rem 12.5rem;
-  box-sizing: border-box;
+  padding: 3.125rem 0;
+  // box-sizing: border-box;
   color: #1e144f;
+  // position: relative;
+  // overflow: hidden;
+
+  width: 100vw;
+`;
+
+const Top = styled.section`
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+`;
+const Bottom = styled.section`
+  margin: 0 auto;
+  width: 70%;
+  height: 25rem;
+  display: flex;
   position: relative;
   overflow: hidden;
 `;
-
 const Wrapper = styled.section`
+  // margin-top: 1rem;
+  height: 100%;
+  gap: 1rem;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-top: 1rem;
+  transform: translateX(${(props) => props.slideIndex * -70}vw);
+  transition: all 1.5s ease;
 `;
 
-const Title = styled.h1`
-  font-size: 1.25rem;
-  text-align: center;
-`;
+const Title = styled.h1``;
 
 const Slide = styled.article`
-  width: 18%;
-  margin-bottom: ;
   border-radius: 5px;
-  border: 1px solid lightgray;
+  border: 0.5px solid lightgray;
+  width: 15.7rem;
+  height: 22rem;
+  align-items: center;
 `;
 
 const ImageContainer = styled.article`
   width: 100%;
+  height: 14.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -148,7 +132,8 @@ const ImageContainer = styled.article`
 `;
 
 const Image = styled.img`
-  max-width: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -182,18 +167,19 @@ const Price = styled.span`
 const Arrow = styled.div`
   width: 2.5rem;
   height: 2.5rem;
-  background-color: #fff7f7;
+  background-color: ${(props) =>
+    props.direction === "left" ? "#FFFFFF" : "#1F9AFF"};
+  color: ${(props) => (props.direction === "left" ? "#1F9AFF" : "#eff8ff")};
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  //   position: absolute;
-  top: 0;
+  position: absolute;
   bottom: 0;
-  //   left: ${(props) => props.direction === "left" && "10px"};
-  //   right: ${(props) => props.direction === "right" && "10px"};
+  left: ${(props) => props.direction === "left" && "45%"};
+  right: ${(props) => props.direction === "right" && "45%"};
   margin: auto;
   cursor: pointer;
-
+  opacity: 0.5;
   z-index: 2;
 `;

@@ -4,7 +4,6 @@ import {
   MonetizationOnOutlined,
   PersonOutlineOutlined,
   ShoppingCartOutlined,
-  SportsRugbySharp,
 } from "@material-ui/icons";
 import styled from "styled-components";
 

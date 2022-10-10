@@ -10,7 +10,6 @@ const Container = styled.div`
   height: 6vh;
   width: 98%;
   margin: auto;
-
   background-color: #1896ff;
   color: #eff8ff;
   display: flex;
