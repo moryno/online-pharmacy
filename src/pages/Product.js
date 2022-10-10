@@ -4,31 +4,33 @@ import Announcement from "../components/Announcement";
 import { Footer } from "../components/Footer";
 import { Add, Remove } from "@material-ui/icons";
 import { mobile } from "../responsive";
-// import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import axios from "axios";
 // import { publicRequest } from "../requestMethods";
 // import {addProduct} from "../redux/cartRedux";
 // import { useDispatch } from "react-redux";
 
 export const Product = () => {
-  //   const location = useLocation();
-  //   const id = location.pathname.split("/")[2];
+  const { id } = useParams();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
 
   //   const dispatch = useDispatch();
 
-  //   useEffect(() => {
-  //     const getProduct = async () => {
-  //       try {
-  //         const { data } = await publicRequest.get("/products/find/" + id);
-  //         setProduct(data);
-  //       } catch (err) {
-  //         console.log(err);
-  //       }
-  //     };
-  //     getProduct();
-  //   }, [id]);
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:3000/products/${id}`
+        );
+        setProduct(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getProduct();
+  }, [id]);
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -47,19 +49,12 @@ export const Product = () => {
       <Announcement />
       <Wrapper>
         <ImageContainer>
-          <Image
-            src="https://www.nacds.org/wp-content/uploads/2017/04/Pills-and-Rx-bottle.jpg"
-            alt="productImage"
-          />
+          <Image src={product.image} alt="productImage" />
         </ImageContainer>
         <InfoContainer>
-          <Title>{"Drug"}</Title>
-          <Desc>
-            {
-              " Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tristiquesemper nulla sed condimentum. Donec tristique, ipsum quis bibendum vulputate"
-            }
-          </Desc>
-          <Price>Ksh. 1900</Price>
+          <Title>{product.title}</Title>
+          <Desc>{product.description}</Desc>
+          <Price>{product.price}</Price>
 
           <AddContainer>
             <AmountContainer>

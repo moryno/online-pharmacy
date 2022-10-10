@@ -1,19 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Product = ({ product }) => {
   return (
     <Card>
-      <ImageContainer>
-        <Image src={product.image} alt="productImage" />
-      </ImageContainer>
-      <InfoContainer>
-        <Category>
-          <CategoryTitle>{product.categories}</CategoryTitle>
-        </Category>
-        <Title>{product.title}</Title>
-        <Price>{product.price}</Price>
-      </InfoContainer>
+      <Link to={`/product/${product.id}`}>
+        <ImageContainer>
+          <Image src={product.image} alt="productImage" />
+        </ImageContainer>
+        <InfoContainer>
+          <Category>
+            <CategoryTitle>{product.categories}</CategoryTitle>
+          </Category>
+          <Title>{product.title}</Title>
+          <Price>{product.price}</Price>
+        </InfoContainer>
+      </Link>
     </Card>
   );
 };
