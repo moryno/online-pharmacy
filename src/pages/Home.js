@@ -6,6 +6,7 @@ import { Footer } from "../components/Footer";
 import MostPopularList from "../components/MostPopularList";
 import Navbar from "../components/Navbar";
 import ProductList from "../components/ProductList";
+import Instructions from "../components/Instructions";
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
       <Announcement />
       <Filter />
       <Hero />
+      <Instructions />
       <MostPopularList />
       <ProductList />
       <Footer />

@@ -152,7 +152,6 @@ const Stats = styled.div`
   &:last-child {
     background-color: #1896ff;
     border: none;
-
     color: #eff8ff;
   }
 `;
