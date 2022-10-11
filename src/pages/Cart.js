@@ -16,9 +16,11 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
+import { useSelector } from "react-redux";
 
 export const Cart = () => {
   const [quantity, setQuantity] = useState(1);
+  const cart = useSelector((state) => state.cart);
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -43,64 +45,69 @@ export const Cart = () => {
           <TopButton type="filled">CLEAR CART</TopButton>
         </Top>
         <Bottom>
-          <Product>
-            <ProductDetail>
-              <Image
-                src="https://images.unsplash.com/photo-1603037738996-a04f1c6a9ce6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
-                alt="movieImg"
-              />
-              <Detail>
-                <Title>Product</Title>
-                <ProductName>RAYZEN DESKTOP MAC 1</ProductName>
-                <RemoveCart>
-                  <DeleteRounded />
-                </RemoveCart>
-              </Detail>
-              <Detail>
-                <Title>Price</Title>
-                <ProductPrice>Ksh132,0000</ProductPrice>
-              </Detail>
-              <Detail>
-                <Title>Quantity</Title>
-                <QuantityContainer>
-                  <Remove
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleQuantity("dec")}
-                  />
-                  <Quantity>{quantity}</Quantity>
-                  <Add
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleQuantity("inc")}
-                  />
-                </QuantityContainer>
-              </Detail>
-              <Detail>
-                <Title>Subtotal</Title>
-                <ProductPrice>
-                  <b>Ksh192,0000</b>
-                </ProductPrice>
-              </Detail>
-            </ProductDetail>
-          </Product>
-          <Hr />
+          <InfoContainer>
+            {cart.products.map((product) => (
+              <Product>
+                <ProductDetail>
+                  <Image src={product.image} alt="productImg" />
+                  <Detail>
+                    <Title>Product</Title>
+                    <ProductName>{product.title}</ProductName>
+                  </Detail>
+                  <Detail>
+                    <Title>Price</Title>
+                    <ProductPrice>Ksh{product.price}</ProductPrice>
+                  </Detail>
+                  <Detail>
+                    <Title>Quantity</Title>
+                    <QuantityContainer>
+                      <Remove
+                        style={{ cursor: "pointer" }}
+                        onClick={() => handleQuantity("dec")}
+                      />
+                      <Quantity>{product.quantity}</Quantity>
+                      <Add
+                        style={{ cursor: "pointer" }}
+                        onClick={() => handleQuantity("inc")}
+                      />
+                    </QuantityContainer>
+                  </Detail>
+                  <Detail>
+                    <Title>Subtotal</Title>
+                    <ProductPrice>
+                      <b>Ksh{product.price * product.quantity}</b>
+                    </ProductPrice>
+                  </Detail>
+                  <Detail>
+                    <Title>Remove</Title>
+                    <RemoveCart>
+                      <DeleteRounded />
+                    </RemoveCart>
+                  </Detail>
+                </ProductDetail>
+              </Product>
+            ))}
+          </InfoContainer>
           <SummaryContainer>
             <SummaryDetail>
               <SummaryTitle>Subtotal</SummaryTitle>
-              <SummaryText>Ksh118,000</SummaryText>
+              <SummaryText>Ksh {cart.total}</SummaryText>
             </SummaryDetail>
             <SummaryDetail>
-              <SummaryTitle>Shipping</SummaryTitle>
+              <SummaryTitle>Delivery</SummaryTitle>
               <SummaryText>
-                Flat rate: Ksh400.00 Delivery within <b>Nairobi County.</b>
+                Free Delivery within <b>Nairobi County.</b>
               </SummaryText>
             </SummaryDetail>
             <SummaryDetail>
               <SummaryTitle>VAT</SummaryTitle>
-              <SummaryText>Ksh18,000</SummaryText>
+              <SummaryText>Ksh {(cart.total * 16) / 100}</SummaryText>
             </SummaryDetail>
             <SummaryDetail type="total">
               <SummaryTitle>Total</SummaryTitle>
-              <SummaryText>Ksh18,000</SummaryText>
+              <SummaryText>
+                Ksh {cart.total + (cart.total * 16) / 100}
+              </SummaryText>
             </SummaryDetail>
             <Button>Proceed to checkout</Button>
           </SummaryContainer>
@@ -112,6 +119,8 @@ export const Cart = () => {
 
 const Container = styled.div`
   color: #1e144f;
+  background-color: #f6f7fb;
+  min-height: 100vh;
 `;
 
 const Wrapper = styled.div`
@@ -158,13 +167,18 @@ const Bottom = styled.div`
   justify-content: space-between;
   ${mobile({ flexDirection: "column" })};
 `;
+const InfoContainer = styled.div`
+  flex: 3;
+`;
 
 const Product = styled.div`
-  flex: 3;
+  display: flex;
 `;
 
 const ProductDetail = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 80%;
 `;
 
 const Image = styled.img`
@@ -196,12 +210,12 @@ const ProductPrice = styled.span`
 const Hr = styled.hr`
   background-color: #eee;
   border: none;
-  height: 1px;
+  border: 0.5px solid rgb(230, 227, 227);
 `;
 
 const SummaryContainer = styled.div`
   flex: 1;
-  background-color: #f4f5f9;
+  background-color: #fff;
   border: 0.5px solid lightgray;
   border-radius: 10px;
   padding: 20px;
@@ -261,5 +275,4 @@ const RemoveCart = styled.button`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 1.5rem;
 `;
