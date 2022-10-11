@@ -74,6 +74,7 @@ export const Footer = () => {
 const Container = styled.div`
   display: flex;
   color: #1e144f;
+  border-top: 0.5px solid rgb(230, 227, 227);
   ${mobile({ flexDirection: "column" })};
 `;
 
