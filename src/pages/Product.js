@@ -8,15 +8,15 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../Helpers/requestMethods";
 // import { publicRequest } from "../requestMethods";
-// import {addProduct} from "../redux/cartRedux";
-// import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/cartSlice";
+import { useDispatch } from "react-redux";
 
 export const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
 
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -39,7 +39,7 @@ export const Product = () => {
   };
 
   const handleClick = () => {
-    // dispatch(addProduct({ ...product, quantity, color, size }));
+    dispatch(addProduct({ ...product, quantity }));
   };
   return (
     <Container>
