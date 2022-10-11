@@ -15,7 +15,6 @@ export const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
