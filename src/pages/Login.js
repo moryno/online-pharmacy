@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { login } from "../redux/apiCalls";
@@ -10,6 +10,7 @@ const Login = () => {
     password: "",
   });
   const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.user);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -57,7 +58,8 @@ const Login = () => {
               type="password"
             />
 
-            <Button>Login</Button>
+            <Button disabled={isFetching}>LOGIN</Button>
+            {error && <Error>Something went wrong</Error>}
           </Form>
           <Register>
             Don't have an account yet?
@@ -148,6 +150,7 @@ const Hr = styled.hr`
 const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
+  position: relative;
 `;
 
 const Input = styled.input`
@@ -169,6 +172,10 @@ const Button = styled.button`
   font-weight: 600;
   margin: 1rem 0;
   border: none;
+  &:disabled {
+    cursor: not-allowed;
+    color: #007cda;
+  }
 `;
 const Span = styled.span`
   color: #e95568;
@@ -176,3 +183,10 @@ const Span = styled.span`
 `;
 
 const Register = styled.span``;
+
+const Error = styled.span`
+  color: red;
+  position: absolute;
+  bottom: 10%;
+  left: 43%;
+`;
