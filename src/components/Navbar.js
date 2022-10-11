@@ -39,12 +39,14 @@ const Navbar = () => {
               />
             </MenuItems>
           </NavLink>
-          <CartItem>
-            <Badge badgeContent={quantity} color="primary">
-              <ShoppingCartOutlined />
-            </Badge>
-            <Cart>Cart</Cart>
-          </CartItem>
+          <NavLink to={"/cart"}>
+            <CartItem>
+              <Badge badgeContent={quantity} color="primary">
+                <ShoppingCartOutlined />
+              </Badge>
+              <Cart>Cart</Cart>
+            </CartItem>
+          </NavLink>
         </Right>
       </Wrapper>
     </Container>
