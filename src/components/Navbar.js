@@ -1,10 +1,13 @@
 import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Medication from "../assests/images/medication.png";
 
 const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
+
   return (
     <Container>
       <Wrapper>
@@ -37,7 +40,7 @@ const Navbar = () => {
             </MenuItems>
           </NavLink>
           <CartItem>
-            <Badge badgeContent={1} color="primary">
+            <Badge badgeContent={quantity} color="primary">
               <ShoppingCartOutlined />
             </Badge>
             <Cart>Cart</Cart>
