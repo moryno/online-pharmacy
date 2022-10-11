@@ -11,9 +11,11 @@ import Single from "../admin/Single";
 import New from "../admin/New";
 import { productInputs, userInputs } from "../Helpers/formsource";
 import Settings from "../pages/Settings";
+import { useSelector } from "react-redux";
 
 function App() {
-  const user = false;
+  const user = useSelector((state) => state.user.currentUser);
+  const admin = user.user.profile.is_admin;
   return (
     <Router>
       <Routes>
@@ -29,25 +31,29 @@ function App() {
           <Route path="product">
             <Route path=":id" element={<Product />} />
           </Route>
-          <Route path="admin">
-            <Route index element={<Dashboard />} />
-            <Route path="users">
-              <Route index element={<List />} />
-              <Route path=":userId" element={<Single />} />
-              <Route
-                path="new"
-                element={<New inputs={userInputs} title="Add New User" />}
-              />
+          {admin && (
+            <Route path="admin">
+              <Route index element={<Dashboard />} />
+              <Route path="users">
+                <Route index element={<List />} />
+                <Route path=":userId" element={<Single />} />
+                <Route
+                  path="new"
+                  element={<New inputs={userInputs} title="Add New User" />}
+                />
+              </Route>
+              <Route path="products">
+                <Route index element={<List />} />
+                <Route path=":productId" element={<Single />} />
+                <Route
+                  path="new"
+                  element={
+                    <New inputs={productInputs} title="Add New Product" />
+                  }
+                />
+              </Route>
             </Route>
-            <Route path="products">
-              <Route index element={<List />} />
-              <Route path=":productId" element={<Single />} />
-              <Route
-                path="new"
-                element={<New inputs={productInputs} title="Add New Product" />}
-              />
-            </Route>
-          </Route>
+          )}
         </Route>
       </Routes>
     </Router>
