@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { login } from "../redux/apiCalls";
 
 const Login = () => {
+  const [inputs, setInputs] = useState({
+    username: "",
+    password: "",
+  });
+  const dispatch = useDispatch();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setInputs({ ...inputs, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    login(dispatch, inputs);
+  };
   return (
     <Container>
       <Left>
@@ -23,10 +40,11 @@ const Login = () => {
             setting up your profile.
           </Description>
           <Hr />
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Input
               id="username"
               name="username"
+              onChange={handleChange}
               placeholder="Username"
               type="text"
             />
@@ -34,6 +52,7 @@ const Login = () => {
             <Input
               id="password"
               name="password"
+              onChange={handleChange}
               placeholder="Password"
               type="password"
             />
