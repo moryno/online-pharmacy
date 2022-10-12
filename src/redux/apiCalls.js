@@ -1,5 +1,10 @@
-import { publicRequest } from "../Helpers/requestMethods";
+import { authUserRequest, publicRequest } from "../Helpers/requestMethods";
 import { loginStart, loginSuccess, loginFailure } from "./userSlice";
+import {
+  getProductFailure,
+  getProductStart,
+  getProductSuccess,
+} from "./productSlice";
 
 export const login = async (dispatch, user) => {
   dispatch(loginStart());
@@ -8,5 +13,15 @@ export const login = async (dispatch, user) => {
     dispatch(loginSuccess(data));
   } catch (error) {
     dispatch(loginFailure());
+  }
+};
+
+export const getProducts = async (dispatch) => {
+  dispatch(getProductStart());
+  try {
+    const { data } = publicRequest.get("/products");
+    dispatch(getProductSuccess(data));
+  } catch (error) {
+    dispatch(getProductFailure());
   }
 };
