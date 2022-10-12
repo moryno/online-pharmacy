@@ -3,16 +3,65 @@ import { useState } from "react";
 import styled from "styled-components";
 import DashboardNavbar from "../components/DashboardNavbar";
 import Sidebar from "../components/Sidebar";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+
+import app from "../Helpers/firebase";
+import { addProduct } from "../redux/apiCalls";
+import { useDispatch } from "react-redux";
 
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
   const [input, setInputs] = useState({});
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setInputs({ ...input, [name]: value });
   };
-  console.log(input);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const fileName = new Date().getTime() + file.name;
+    const storage = getStorage(app);
+    const storageRef = ref(storage, fileName);
+
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+        }
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          const product = { ...input, image: downloadURL };
+          try {
+            addProduct(product, dispatch);
+          } catch (error) {
+            console.log(error);
+          }
+        });
+      }
+    );
+  };
   return (
     <Container>
       <Sidebar />
@@ -34,7 +83,7 @@ const New = ({ inputs, title }) => {
             />
           </Left>
           <Right>
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <FormInput>
                 <Label htmlFor="image">
                   Image:{" "}

@@ -1,7 +1,7 @@
 import { DriveFolderUploadOutlined } from "@mui/icons-material";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import DashboardNavbar from "../components/DashboardNavbar";
 import Sidebar from "../components/Sidebar";
@@ -10,7 +10,7 @@ const Single = ({ inputs, title }) => {
   const { productId } = useParams();
   const [file, setFile] = useState("");
   const product = useSelector((state) =>
-    state.product.products.find((product) => product.id === productId)
+    state.product.products.find((product) => product.id == productId)
   );
   console.log(product);
   return (

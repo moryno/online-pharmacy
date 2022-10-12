@@ -1,4 +1,4 @@
-import { authUserRequest, publicRequest } from "../Helpers/requestMethods";
+import request from "../Helpers/requestMethods";
 import { loginStart, loginSuccess, loginFailure } from "./userSlice";
 import {
   getProductFailure,
@@ -15,7 +15,7 @@ import {
 export const login = async (dispatch, user) => {
   dispatch(loginStart());
   try {
-    const { data } = await publicRequest.post("/login", user);
+    const { data } = await request.post("/login", user);
     dispatch(loginSuccess(data));
   } catch (error) {
     dispatch(loginFailure());
@@ -25,17 +25,17 @@ export const login = async (dispatch, user) => {
 export const getProducts = async (dispatch) => {
   dispatch(getProductStart());
   try {
-    const { data } = await publicRequest.get("/products");
+    const { data } = await request.get("/products");
     dispatch(getProductSuccess(data));
   } catch (error) {
     dispatch(getProductFailure());
   }
 };
 
-export const addProduct = async (dispatch, product) => {
+export const addProduct = async (product, dispatch) => {
   dispatch(addProductStart());
   try {
-    const { data } = await authUserRequest.post(`/products`, product);
+    const { data } = await request.post(`/products`, product);
     dispatch(addProductSuccess(data));
   } catch (err) {
     dispatch(addProductFailure());
@@ -44,7 +44,7 @@ export const addProduct = async (dispatch, product) => {
 export const deleteProduct = async (id, dispatch) => {
   dispatch(deleteProductStart());
   try {
-    await authUserRequest.delete(`/products/${id}`);
+    await request.delete(`/products/${id}`);
     dispatch(deleteProductSuccess(id));
   } catch (err) {
     dispatch(deleteProductFailure());

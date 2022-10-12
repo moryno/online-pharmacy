@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { publicRequest } from "../Helpers/requestMethods";
+import request from "../Helpers/requestMethods";
 import Products from "./Products";
 
 const ProductList = ({ filters, category, sort }) => {
@@ -9,9 +9,10 @@ const ProductList = ({ filters, category, sort }) => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const { data } = await publicRequest.get(
+        const { data } = await request.get(
           category ? `/products?category=${category}` : "/products"
         );
+
         setProducts(data);
       } catch (error) {
         console.log(error);

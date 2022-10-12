@@ -1,13 +1,23 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/";
+const BASE_URL = "http://localhost:3000";
 
 const TOKEN = JSON.parse(JSON.parse(localStorage.getItem("persist:root"))?.user)
   .currentUser?.token;
 
-export const publicRequest = axios.create({ baseURL: BASE_URL });
+let request = axios.create({ baseURL: BASE_URL });
 
-export const authUserRequest = axios.create({
-  baseURL: BASE_URL,
-  headers: { token: `Bearer ${TOKEN}` },
-});
+request.interceptors.request.use(
+  (config) => {
+    if (TOKEN) {
+      config.headers = { Authorization: `Bearer ${TOKEN}` };
+    }
+
+    return config;
+  },
+  (error) => {
+    console.log(error);
+  }
+);
+
+export default request;
