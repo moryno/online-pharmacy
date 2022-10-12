@@ -12,7 +12,7 @@ const Single = ({ inputs, title }) => {
   const product = useSelector((state) =>
     state.product.products.find((product) => product.id == productId)
   );
-  console.log(product);
+
   return (
     <Container>
       <Sidebar />
