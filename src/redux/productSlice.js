@@ -37,6 +37,19 @@ const productSlice = createSlice({
       state.isFetching = false;
       state.error = true;
     },
+
+    // Add product
+    addProductStart: (state) => {
+      state.isFetching = true;
+    },
+    addProductSuccess: (state, action) => {
+      state.isFetching = false;
+      state.products.push(action.payload);
+    },
+    addProductFailure: (state) => {
+      state.isFetching = false;
+      state.error = true;
+    },
   },
 });
 
@@ -47,6 +60,9 @@ export const {
   deleteProductStart,
   deleteProductSuccess,
   deleteProductFailure,
+  addProductStart,
+  addProductSuccess,
+  addProductFailure,
 } = productSlice.actions;
 
 export default productSlice.reducer;

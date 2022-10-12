@@ -55,10 +55,15 @@ function App() {
                     />
                   }
                 />
-                <Route path=":userId" element={<Single />} />
+                <Route
+                  path=":userId"
+                  element={
+                    <Single inputs={userInputs} title="Update New User" />
+                  }
+                />
                 <Route
                   path="new"
-                  element={<New inputs={userInputs} title="Add New User" />}
+                  element={<New inputs={userInputs} title="Update New User" />}
                 />
               </Route>
               <Route path="products">
@@ -72,7 +77,12 @@ function App() {
                     />
                   }
                 />
-                <Route path=":productId" element={<Single />} />
+                <Route
+                  path=":productId"
+                  element={
+                    <Single inputs={productInputs} title="Add New Product" />
+                  }
+                />
                 <Route
                   path="new"
                   element={

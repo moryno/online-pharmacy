@@ -7,6 +7,9 @@ import {
   deleteProductStart,
   deleteProductSuccess,
   deleteProductFailure,
+  addProductStart,
+  addProductSuccess,
+  addProductFailure,
 } from "./productSlice";
 
 export const login = async (dispatch, user) => {
@@ -29,6 +32,15 @@ export const getProducts = async (dispatch) => {
   }
 };
 
+export const addProduct = async (dispatch, product) => {
+  dispatch(addProductStart());
+  try {
+    const { data } = await authUserRequest.post(`/products`, product);
+    dispatch(addProductSuccess(data));
+  } catch (err) {
+    dispatch(addProductFailure());
+  }
+};
 export const deleteProduct = async (id, dispatch) => {
   dispatch(deleteProductStart());
   try {

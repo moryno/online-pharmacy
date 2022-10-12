@@ -6,7 +6,13 @@ import Sidebar from "../components/Sidebar";
 
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
+  const [input, setInputs] = useState({});
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setInputs({ ...input, [name]: value });
+  };
+  console.log(input);
   return (
     <Container>
       <Sidebar />
@@ -44,7 +50,12 @@ const New = ({ inputs, title }) => {
               {inputs.map((input) => (
                 <FormInput key={input.id}>
                   <Label>{input.label}</Label>
-                  <Input type={input.type} placeholder={input.placeholder} />
+                  <Input
+                    type={input.type}
+                    name={input.name}
+                    onChange={handleChange}
+                    placeholder={input.placeholder}
+                  />
                 </FormInput>
               ))}
 
@@ -127,7 +138,8 @@ const Label = styled.label`
 const Input = styled.input`
   width: 100%;
   border: none;
-  padding: 5px;
+  padding: 10px 0;
+  outline: none;
   border-bottom: 1px solid lightgray;
 `;
 

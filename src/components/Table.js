@@ -10,16 +10,16 @@ import { useEffect, useState } from "react";
 import { authUserRequest } from "../Helpers/requestMethods";
 
 const List = () => {
-  const [orders, setOrders] = useState([]);
+  // const [orders, setOrders] = useState([]);
 
-  useEffect(() => {
-    const getOrders = async () => {
-      const { data } = await authUserRequest.get("/orders");
-      setOrders(data);
-    };
-    getOrders();
-  }, []);
-  console.log(orders);
+  // useEffect(() => {
+  //   const getOrders = async () => {
+  //     const { data } = await authUserRequest.get("/orders");
+  //     setOrders(data);
+  //   };
+  //   getOrders();
+  // }, []);
+
   const rows = [
     {
       id: 1,

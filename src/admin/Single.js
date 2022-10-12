@@ -1,10 +1,18 @@
-import React from "react";
+import { DriveFolderUploadOutlined } from "@mui/icons-material";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import DashboardNavbar from "../components/DashboardNavbar";
 import Sidebar from "../components/Sidebar";
-import Table from "../components/Table";
 
-const Single = () => {
+const Single = ({ inputs, title }) => {
+  const { productId } = useParams();
+  const [file, setFile] = useState("");
+  const product = useSelector((state) =>
+    state.product.products.find((product) => product.id === productId)
+  );
+  console.log(product);
   return (
     <Container>
       <Sidebar />
@@ -15,12 +23,9 @@ const Single = () => {
             <EditButton>Edit</EditButton>
             <Title>Information</Title>
             <Item>
-              <Image
-                src="https://3xo4di2xpixr3oltj74229w9-wpengine.netdna-ssl.com/wp-content/uploads/2021/06/medicine-pharmacy-main.png"
-                alt="ItemImg"
-              />
+              <Image src={product?.image} alt="ItemImg" />
               <Details>
-                <ItemTitle>Jane Doe</ItemTitle>
+                <ItemTitle>{product?.title}</ItemTitle>
                 <DetailItem>
                   <ItemKey>Email:</ItemKey>
                   <ItemValue>janedoe@gmail.com</ItemValue>
@@ -43,8 +48,29 @@ const Single = () => {
           <Right>Details</Right>
         </Top>
         <Bottom>
-          <Title>Last Transactions</Title>
-          <Table />
+          <Title>{title}</Title>
+          <Form>
+            <FormInput>
+              <Label htmlFor="image">
+                Image:{" "}
+                <DriveFolderUploadOutlined style={{ cursor: "pointer" }} />
+              </Label>
+              <Input
+                id="image"
+                type="file"
+                onChange={(event) => setFile(event.target.files[0])}
+                style={{ display: "none " }}
+              />
+            </FormInput>
+            {inputs.map((input) => (
+              <FormInput key={input.id}>
+                <Label>{input.label}</Label>
+                <Input type={input.type} placeholder={input.placeholder} />
+              </FormInput>
+            ))}
+
+            <Button>Update</Button>
+          </Form>
         </Bottom>
       </SingleContainer>
     </Container>
@@ -139,4 +165,38 @@ const Bottom = styled.section`
   box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
   -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
   -moz-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.875rem;
+  justify-content: space-around;
+`;
+
+const FormInput = styled.article`
+  width: 40%;
+`;
+
+const Label = styled.label`
+  display: flex;
+  align-item: center;
+  gap: 10px;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  border: none;
+  padding: 5px;
+  border-bottom: 1px solid lightgray;
+`;
+
+const Button = styled.button`
+  width: 9.375rem;
+  padding: 10px;
+  border: none;
+  background-color: #1896ff;
+  color: #eff8ff;
+  cursor: pointer;
+  margin-top: 10px;
 `;
