@@ -3,13 +3,13 @@ import DashboardNavbar from "../components/DashboardNavbar";
 import DataTable from "../components/DataTable";
 import Sidebar from "../components/Sidebar";
 
-const List = ({ data, columns }) => {
+const List = ({ data, columns, type }) => {
   return (
     <Container>
       <Sidebar />
       <ListContainer>
         <DashboardNavbar />
-        <DataTable data={data} columns={columns} />
+        <DataTable data={data} columns={columns} type={type} />
       </ListContainer>
     </Container>
   );

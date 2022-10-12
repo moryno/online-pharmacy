@@ -1,8 +1,64 @@
 import { DataGrid } from "@mui/x-data-grid";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { deleteProduct } from "../redux/apiCalls";
 
-const DataTable = ({ data, columns }) => {
+const DataTable = ({ data, columns, type }) => {
+  const dispatch = useDispatch();
+  const handleDelete = (id) => {
+    deleteProduct(id, dispatch);
+  };
+
+  let actionColumn;
+  switch (type) {
+    case "users":
+      actionColumn = [
+        {
+          field: "action",
+          headerName: "Action",
+          width: 200,
+          renderCell: (params) => {
+            return (
+              <ActionCell>
+                <Link to={`/admin/users/${params.row.id}`}>
+                  <ViewButton>View</ViewButton>
+                </Link>
+                <DeleteButton onClick={() => handleDelete(params.row.id)}>
+                  Delete
+                </DeleteButton>
+              </ActionCell>
+            );
+          },
+        },
+      ];
+      break;
+    case "products":
+      actionColumn = [
+        {
+          field: "action",
+          headerName: "Action",
+          width: 200,
+          renderCell: (params) => {
+            return (
+              <ActionCell>
+                <Link to={`/admin/products/${params.row.id}`}>
+                  <ViewButton>View</ViewButton>
+                </Link>
+                <DeleteButton onClick={() => handleDelete(params.row.id)}>
+                  Delete
+                </DeleteButton>
+              </ActionCell>
+            );
+          },
+        },
+      ];
+      break;
+
+    default:
+      break;
+  }
+
   return (
     <Container>
       <TitleContainer>
@@ -13,7 +69,7 @@ const DataTable = ({ data, columns }) => {
       </TitleContainer>
       <DataGrid
         rows={data}
-        columns={columns}
+        columns={columns.concat(actionColumn)}
         pageSize={5}
         rowsPerPageOptions={[5]}
         checkboxSelection

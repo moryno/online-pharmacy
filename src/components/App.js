@@ -45,7 +45,16 @@ function App() {
             <Route path="admin">
               <Route index element={<Dashboard />} />
               <Route path="users">
-                <Route index element={<List />} />
+                <Route
+                  index
+                  element={
+                    <List
+                      data={products}
+                      type="users"
+                      columns={productColumns}
+                    />
+                  }
+                />
                 <Route path=":userId" element={<Single />} />
                 <Route
                   path="new"
@@ -55,7 +64,13 @@ function App() {
               <Route path="products">
                 <Route
                   index
-                  element={<List data={products} columns={productColumns} />}
+                  element={
+                    <List
+                      data={products}
+                      columns={productColumns}
+                      type="products"
+                    />
+                  }
                 />
                 <Route path=":productId" element={<Single />} />
                 <Route

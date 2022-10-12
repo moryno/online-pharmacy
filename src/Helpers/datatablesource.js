@@ -1,8 +1,6 @@
 // temporary data
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-const handleDelete = (id) => {};
 
 export const userColumns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -22,23 +20,6 @@ export const userColumns = [
   { field: "email", headerName: "Email", width: 230 },
   { field: "age", headerName: "Age", width: 70 },
   { field: "status", headerName: "Status", width: 100 },
-  {
-    field: "action",
-    headerName: "Action",
-    width: 200,
-    renderCell: (params) => {
-      return (
-        <ActionCell>
-          <Link to={`admin/users/${params.row.id}`}>
-            <ViewButton>View</ViewButton>
-          </Link>
-          <DeleteButton onClick={() => handleDelete(params.row.id)}>
-            Delete
-          </DeleteButton>
-        </ActionCell>
-      );
-    },
-  },
 ];
 
 export const productColumns = [
@@ -62,23 +43,6 @@ export const productColumns = [
     field: "price",
     headerName: "Price",
     width: 160,
-  },
-  {
-    field: "action",
-    headerName: "Action",
-    width: 200,
-    renderCell: (params) => {
-      return (
-        <ActionCell>
-          <Link to={`/admin/products/${params.row.id}`}>
-            <ViewButton>View</ViewButton>
-          </Link>
-          <DeleteButton onClick={() => handleDelete(params.row.id)}>
-            Delete
-          </DeleteButton>
-        </ActionCell>
-      );
-    },
   },
 ];
 
