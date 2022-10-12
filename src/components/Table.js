@@ -6,8 +6,20 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { useEffect, useState } from "react";
+import { authUserRequest } from "../Helpers/requestMethods";
 
 const List = () => {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const getOrders = async () => {
+      const { data } = await authUserRequest.get("/orders");
+      setOrders(data);
+    };
+    getOrders();
+  }, []);
+  console.log(orders);
   const rows = [
     {
       id: 1,

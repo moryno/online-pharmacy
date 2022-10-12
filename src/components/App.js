@@ -11,11 +11,21 @@ import Single from "../admin/Single";
 import New from "../admin/New";
 import { productInputs, userInputs } from "../Helpers/formsource";
 import Settings from "../pages/Settings";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getProducts } from "../redux/apiCalls";
+import { userColumns, productColumns } from "../Helpers/datatablesource";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
   const admin = user?.user.profile.is_admin;
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.product.products);
+
+  useEffect(() => {
+    getProducts(dispatch);
+  }, [dispatch]);
+
   return (
     <Router>
       <Routes>
@@ -43,7 +53,10 @@ function App() {
                 />
               </Route>
               <Route path="products">
-                <Route index element={<List />} />
+                <Route
+                  index
+                  element={<List data={products} columns={productColumns} />}
+                />
                 <Route path=":productId" element={<Single />} />
                 <Route
                   path="new"

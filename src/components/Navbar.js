@@ -41,7 +41,11 @@ const Navbar = () => {
           </NavLink>
           <NavLink to={"/cart"}>
             <CartItem>
-              <Badge badgeContent={quantity} color="primary">
+              <Badge
+                badgeContent={quantity}
+                color="primary"
+                overlap="rectangular"
+              >
                 <ShoppingCartOutlined />
               </Badge>
               <Cart>Cart</Cart>

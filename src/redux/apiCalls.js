@@ -19,7 +19,7 @@ export const login = async (dispatch, user) => {
 export const getProducts = async (dispatch) => {
   dispatch(getProductStart());
   try {
-    const { data } = publicRequest.get("/products");
+    const { data } = await publicRequest.get("/products");
     dispatch(getProductSuccess(data));
   } catch (error) {
     dispatch(getProductFailure());
