@@ -45,6 +45,8 @@ const New = ({ inputs, title }) => {
           case "running":
             console.log("Upload is running");
             break;
+          default:
+            break;
         }
       },
       (error) => {
