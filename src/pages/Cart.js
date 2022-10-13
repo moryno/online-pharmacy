@@ -11,16 +11,21 @@ import {
   Remove,
   RemoveCircleOutline,
 } from "@material-ui/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import request from "../Helpers/requestMethods";
 
 export const Cart = () => {
   const [quantity, setQuantity] = useState(1);
   const cart = useSelector((state) => state.cart);
+  const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const [orderId, setOrderId] = useState(null);
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -30,6 +35,49 @@ export const Cart = () => {
     }
   };
 
+  // useEffect(() => {
+  //   const checkout = () => {
+  //     try {
+  //       navigate("/success", { products: cart });
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   checkout();
+  // }, [cart.total, navigate]);
+
+  // useEffect(() => {
+  //   const createOrder = async () => {
+  //     try {
+  //       const { data } = await request.post("/orders", {
+  //         user: currentUser,
+  //         products: cart.products,
+  //         amount: cart.total,
+  //         address: currentUser.profile.address,
+  //       });
+  //       setOrderId(data.id);
+  //     } catch {}
+  //   };
+  //   createOrder();
+  // }, [cart.total, currentUser]);
+
+  const handleCheckout = async () => {
+    try {
+      const { data } = await request.post("/orders", {
+        user: currentUser,
+        products: cart.products.map((item) => ({
+          product_id: item.id,
+          quantity: item.quantity,
+        })),
+        amount: cart.total,
+        address: currentUser.profile?.address,
+      });
+      setOrderId(data.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  console.log(orderId);
   return (
     <Container>
       <Navbar />
@@ -47,7 +95,7 @@ export const Cart = () => {
         <Bottom>
           <InfoContainer>
             {cart.products.map((product) => (
-              <Product>
+              <Product key={product.id}>
                 <ProductDetail>
                   <Image src={product.image} alt="productImg" />
                   <Detail>
@@ -109,7 +157,7 @@ export const Cart = () => {
                 Ksh {cart.total + (cart.total * 16) / 100}
               </SummaryText>
             </SummaryDetail>
-            <Button>Proceed to checkout</Button>
+            <Button onClick={handleCheckout}>Proceed to checkout</Button>
           </SummaryContainer>
         </Bottom>
       </Wrapper>

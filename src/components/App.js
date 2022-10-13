@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getProducts } from "../redux/apiCalls";
 import { userColumns, productColumns } from "../Helpers/datatablesource";
+import Success from "../pages/Success";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -34,6 +35,7 @@ function App() {
           <Route path="cart" element={<Cart />} />
           <Route path="login" element={user ? <Home /> : <Login />} />
           <Route path="register" element={user ? <Home /> : <Register />} />
+          <Route path="success" element={<Success />} />
           <Route path="settings" element={user ? <Settings /> : <Register />} />
           <Route path="products">
             <Route path=":category" element={<CategoryList />} />

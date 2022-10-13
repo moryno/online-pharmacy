@@ -7,18 +7,18 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
-import { authUserRequest } from "../Helpers/requestMethods";
+import request from "../Helpers/requestMethods";
 
 const List = () => {
-  // const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([]);
 
-  // useEffect(() => {
-  //   const getOrders = async () => {
-  //     const { data } = await authUserRequest.get("/orders");
-  //     setOrders(data);
-  //   };
-  //   getOrders();
-  // }, []);
+  useEffect(() => {
+    const getOrders = async () => {
+      const { data } = await request.get("/orders");
+      setOrders(data);
+    };
+    getOrders();
+  }, []);
 
   const rows = [
     {
@@ -52,6 +52,7 @@ const List = () => {
       status: "Approved",
     },
   ];
+  console.log(orders);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
