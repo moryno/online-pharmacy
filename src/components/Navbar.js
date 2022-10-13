@@ -1,12 +1,20 @@
 import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Medication from "../assests/images/medication.png";
+import { logout } from "../redux/userSlice";
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(logout());
+    window.location.replace("/");
+  };
 
   return (
     <Container>
@@ -27,10 +35,19 @@ const Navbar = () => {
           </SearchContainer>
         </Center>
         <Right>
-          <MenuItems>
-            <SignText>Hello, sign in</SignText>
-            <SignAccount>Account & Lists</SignAccount>
-          </MenuItems>
+          {user ? (
+            <MenuItems onClick={handleLogOut}>
+              <SignText>Goodbye, </SignText>
+              <SignAccount>sign out</SignAccount>
+            </MenuItems>
+          ) : (
+            <NavLink to="/register">
+              <MenuItems>
+                <SignText>Hello, sign in</SignText>
+                <SignAccount>Account & Lists</SignAccount>
+              </MenuItems>
+            </NavLink>
+          )}
           <NavLink to="/settings">
             <MenuItems>
               <Profile
