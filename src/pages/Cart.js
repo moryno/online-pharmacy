@@ -88,7 +88,7 @@ export const Cart = () => {
     dispatch(deleteCart());
   };
 
-  console.log(cart);
+  console.log(orderId);
   return (
     <Container>
       <Navbar />
