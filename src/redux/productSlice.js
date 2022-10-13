@@ -56,7 +56,9 @@ const productSlice = createSlice({
     },
     updateProductSuccess: (state, action) => {
       state.isFetching = false;
-      state.products.push(action.payload);
+      state.products[
+        state.products.findIndex((product) => product.id === action.payload.id)
+      ] = action.payload.product;
     },
     updateProductFailure: (state) => {
       state.isFetching = false;
@@ -75,6 +77,9 @@ export const {
   addProductStart,
   addProductSuccess,
   addProductFailure,
+  updateProductStart,
+  updateProductSuccess,
+  updateProductFailure,
 } = productSlice.actions;
 
 export default productSlice.reducer;
