@@ -6,7 +6,7 @@ import styled from "styled-components";
 import DashboardNavbar from "../components/DashboardNavbar";
 import Sidebar from "../components/Sidebar";
 
-const Single = ({ inputs, title }) => {
+const SingleUser = ({ inputs, title }) => {
   const { productId } = useParams();
   const [file, setFile] = useState("");
   const product = useSelector((state) =>
@@ -20,22 +20,27 @@ const Single = ({ inputs, title }) => {
         <DashboardNavbar />
         <Top>
           <Left>
+            <EditButton>Edit</EditButton>
             <Title>Information</Title>
             <Item>
               <Image src={product?.image} alt="ItemImg" />
               <Details>
                 <ItemTitle>{product?.title}</ItemTitle>
                 <DetailItem>
-                  <ItemKey>Categories:</ItemKey>
-                  <ItemValue>{product.categories}</ItemValue>
+                  <ItemKey>Email:</ItemKey>
+                  <ItemValue>janedoe@gmail.com</ItemValue>
                 </DetailItem>
                 <DetailItem>
-                  <ItemKey>Price:</ItemKey>
-                  <ItemValue>{product.price}</ItemValue>
+                  <ItemKey>Phone:</ItemKey>
+                  <ItemValue>97655789</ItemValue>
                 </DetailItem>
                 <DetailItem>
-                  <ItemKey>Description:</ItemKey>
-                  <ItemValue>{product.description}</ItemValue>
+                  <ItemKey>Address:</ItemKey>
+                  <ItemValue>Elton 24433</ItemValue>
+                </DetailItem>
+                <DetailItem>
+                  <ItemKey>Country:</ItemKey>
+                  <ItemValue>Kenya</ItemValue>
                 </DetailItem>
               </Details>
             </Item>
@@ -72,7 +77,7 @@ const Single = ({ inputs, title }) => {
   );
 };
 
-export default Single;
+export default SingleUser;
 
 const Container = styled.main`
   display: flex;
@@ -108,6 +113,18 @@ const Image = styled.img`
   width: 6.25rem;
   border-radius: 50%;
   object-fit: cover;
+`;
+
+const EditButton = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  font-size: 14px;
+  color: #1896ff;
+  background-color: #7551f818;
+  cursor: pointer;
+  border-radius: 0px 0px 0px 5px;
 `;
 
 const Title = styled.h2`

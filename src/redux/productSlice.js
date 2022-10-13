@@ -50,6 +50,18 @@ const productSlice = createSlice({
       state.isFetching = false;
       state.error = true;
     },
+    // Update product
+    updateProductStart: (state) => {
+      state.isFetching = true;
+    },
+    updateProductSuccess: (state, action) => {
+      state.isFetching = false;
+      state.products.push(action.payload);
+    },
+    updateProductFailure: (state) => {
+      state.isFetching = false;
+      state.error = true;
+    },
   },
 });
 
