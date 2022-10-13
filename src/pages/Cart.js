@@ -16,9 +16,10 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import request from "../Helpers/requestMethods";
+import { deleteCart, removeProduct } from "../redux/cartSlice";
 
 export const Cart = () => {
   const [quantity, setQuantity] = useState(1);
@@ -26,6 +27,7 @@ export const Cart = () => {
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
   const [orderId, setOrderId] = useState(null);
+  const dispatch = useDispatch();
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -77,7 +79,16 @@ export const Cart = () => {
       console.log(err);
     }
   };
-  console.log(orderId);
+
+  const handleRemove = () => {
+    dispatch(removeProduct(cart));
+  };
+
+  const clearCart = () => {
+    dispatch(deleteCart());
+  };
+
+  console.log(cart);
   return (
     <Container>
       <Navbar />
@@ -90,7 +101,9 @@ export const Cart = () => {
             <TopText>Shopping Bag (2)</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton type="filled">CLEAR CART</TopButton>
+          <TopButton type="filled" onClick={clearCart}>
+            CLEAR CART
+          </TopButton>
         </Top>
         <Bottom>
           <InfoContainer>
@@ -129,7 +142,7 @@ export const Cart = () => {
                   <Detail>
                     <Title>Remove</Title>
                     <RemoveCart>
-                      <DeleteRounded />
+                      <DeleteRounded onClick={handleRemove} />
                     </RemoveCart>
                   </Detail>
                 </ProductDetail>

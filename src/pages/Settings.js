@@ -16,7 +16,6 @@ import { useSelector } from "react-redux";
 const Settings = () => {
   const [file, setFile] = useState("");
   const user = useSelector((state) => state.user.currentUser);
-
   const [input, setInputs] = useState({});
 
   const handleChange = (event) => {

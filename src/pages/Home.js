@@ -10,6 +10,7 @@ import OurPromise from "../components/OurPromise";
 import ProductCarousel from "../components/ProductCarousel";
 import { sliderItems } from "../Helpers/data";
 import styled from "styled-components";
+import CategoryTitle from "../components/CategoryTitle";
 
 const Home = () => {
   return (
@@ -24,6 +25,7 @@ const Home = () => {
         title="Shop common medications"
       />
       <ProductCarousel sliderItems={sliderItems} title="New on medicine" />
+      <CategoryTitle />
       <ProductList />
       <OurPromise />
       <Footer />
