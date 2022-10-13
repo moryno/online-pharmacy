@@ -1,18 +1,75 @@
 import { DriveFolderUploadOutlined } from "@mui/icons-material";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import DashboardNavbar from "../components/DashboardNavbar";
 import Sidebar from "../components/Sidebar";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+
+import app from "../Helpers/firebase";
+import { updateProduct } from "../redux/apiCalls";
 
 const Single = ({ inputs, title }) => {
   const { productId } = useParams();
   const [file, setFile] = useState("");
+  const [input, setInputs] = useState({});
+
   const product = useSelector((state) =>
     state.product.products.find((product) => product.id == productId)
   );
 
+  const dispatch = useDispatch();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setInputs({ ...input, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const fileName = new Date().getTime() + file.name;
+    const storage = getStorage(app);
+    const storageRef = ref(storage, fileName);
+
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+        }
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          const results = { ...input, image: downloadURL };
+          try {
+            updateProduct(productId, results, dispatch);
+          } catch (error) {
+            console.log(error);
+          }
+        });
+      }
+    );
+  };
+  console.log(input);
   return (
     <Container>
       <Sidebar />
@@ -43,29 +100,47 @@ const Single = ({ inputs, title }) => {
           <Right>Details</Right>
         </Top>
         <Bottom>
-          <Title>{title}</Title>
-          <Form>
-            <FormInput>
-              <Label htmlFor="image">
-                Image:{" "}
-                <DriveFolderUploadOutlined style={{ cursor: "pointer" }} />
-              </Label>
-              <Input
-                id="image"
-                type="file"
-                onChange={(event) => setFile(event.target.files[0])}
-                style={{ display: "none " }}
-              />
-            </FormInput>
-            {inputs.map((input) => (
-              <FormInput key={input.id}>
-                <Label>{input.label}</Label>
-                <Input type={input.type} placeholder={input.placeholder} />
+          <BottomLeft>
+            {" "}
+            <UpdateImage
+              src={
+                file
+                  ? URL.createObjectURL(file)
+                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+              }
+              alt="ItemImg"
+            />
+          </BottomLeft>
+          <BottomRight>
+            <Title>{title}</Title>
+            <Form onSubmit={handleSubmit}>
+              <FormInput>
+                <Label htmlFor="image">
+                  Image:{" "}
+                  <DriveFolderUploadOutlined style={{ cursor: "pointer" }} />
+                </Label>
+                <Input
+                  id="image"
+                  type="file"
+                  onChange={(event) => setFile(event.target.files[0])}
+                  style={{ display: "none " }}
+                />
               </FormInput>
-            ))}
+              {inputs.map((input) => (
+                <FormInput key={input.id}>
+                  <Label>{input.label}</Label>
+                  <Input
+                    type={input.type}
+                    name={input.name}
+                    onChange={handleChange}
+                    placeholder={input.placeholder}
+                  />
+                </FormInput>
+              ))}
 
-            <Button>Update</Button>
-          </Form>
+              <Button>Update</Button>
+            </Form>
+          </BottomRight>
         </Bottom>
       </SingleContainer>
     </Container>
@@ -149,6 +224,21 @@ const Bottom = styled.section`
   -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
   -moz-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
 `;
+const BottomLeft = styled.article`
+  flex: 1;
+  text-align: center;
+`;
+
+const UpdateImage = styled.img`
+  height: 6.25rem;
+  width: 6.25rem;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+
+const BottomRight = styled.article`
+  flex: 2;
+`;
 
 const Form = styled.form`
   display: flex;
@@ -171,6 +261,7 @@ const Input = styled.input`
   width: 100%;
   border: none;
   padding: 5px;
+  outline: none;
   border-bottom: 1px solid lightgray;
 `;
 

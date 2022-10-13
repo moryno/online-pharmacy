@@ -62,6 +62,7 @@ const New = ({ inputs, title }) => {
       }
     );
   };
+
   return (
     <Container>
       <Sidebar />
