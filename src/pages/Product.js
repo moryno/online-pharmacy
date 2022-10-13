@@ -4,17 +4,20 @@ import Announcement from "../components/Announcement";
 import { Footer } from "../components/Footer";
 import { Add, Remove } from "@material-ui/icons";
 import { mobile } from "../responsive";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import request from "../Helpers/requestMethods";
 
 import { addProduct } from "../redux/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
+  const [comment, setComment] = useState({});
+
+  const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,7 +30,7 @@ export const Product = () => {
       }
     };
     getProduct();
-  }, [id]);
+  }, [id, product]);
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -36,7 +39,25 @@ export const Product = () => {
       setQuantity(quantity + 1);
     }
   };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setComment({
+      ...comment,
+      [name]: value,
+      product_id: id,
+      user_id: user.id,
+    });
+  };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const { data } = await request.post(`/reviews`, comment);
+      setProduct({ ...product, data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const handleClick = () => {
     dispatch(addProduct({ ...product, quantity }));
   };
@@ -69,39 +90,24 @@ export const Product = () => {
           </AddContainer>
         </InfoContainer>
       </Wrapper>
-      {/* <CommentContainer>
+      <CommentContainer>
         <CommentTitle>{product.reviews?.length} Reviews</CommentTitle>
-        {product.reviews?.map((review) => {
-          return (
-            <Comment key={review.id}>
-              <CommentHeader>
-                <UserName>{review.user.username}</UserName>
-                <CommentDate>
-                  {new window.Date(review.created_at).toDateString()}
-                  <CommentEdit>
-                    <Icon>
-                      <i
-                        className="singlePostIcon far fa-edit"
-                        onClick={() => setUpdateMode(!updateMode)}
-                      ></i>
-                    </Icon>
-                    <Icon>
-                      <i
-                        className="singlePostIcon far fa-trash-alt"
-                        onClick={() => handleDelete(review.id)}
-                      ></i>
-                    </Icon>
-                  </CommentEdit>
-                </CommentDate>
-              </CommentHeader>
-              <Post>{review.reviews}</Post>
-            </Comment>
-          );
-        })}
+        {
+          <Comment>
+            <CommentHeader>
+              <UserName>moryno</UserName>
+              <CommentDate>
+                {/* {new window.Date(review.created_at).toDateString()} */}
+              </CommentDate>
+            </CommentHeader>
+            <Post>llllllllll</Post>
+          </Comment>
+        }
       </CommentContainer>
-      <FormTitle>Write a review</FormTitle>
+
       {user ? (
         <ComposeForm onSubmit={handleSubmit}>
+          <FormTitle>Leave a review</FormTitle>
           <FormWrapper>
             <FormDesc>
               Your email address will not be publish.Required fields are marked
@@ -114,21 +120,15 @@ export const Product = () => {
               type="text"
               onChange={handleChange}
             />
-            <FormLabel htmlFor="score">Score *</FormLabel>
-            <CommentScore
-              id="content"
-              name="score"
-              type="number"
-              onChange={handleChange}
-            />
-            <Button>Post Comment</Button>
+
+            <CommentButton>ADD REVIEWS</CommentButton>
           </FormWrapper>
         </ComposeForm>
       ) : (
         <Link to={"/register"}>
           <Button style={{ marginBottom: "5vh" }}>Subscribe</Button>
         </Link>
-      )} */}
+      )}
       <Footer />
     </Container>
   );
@@ -136,10 +136,11 @@ export const Product = () => {
 
 const Container = styled.div`
   color: #1e144f;
+  background-color: #f6f7fb;
 `;
 
 const Wrapper = styled.div`
-  padding: 50px;
+  padding: 3.125rem 6.25rem;
   display: flex;
 
   ${mobile({ padding: "10px", flexDirection: "column" })};
@@ -216,7 +217,9 @@ const Button = styled.button`
   }
 `;
 
-const CommentContainer = styled.section``;
+const CommentContainer = styled.section`
+  padding: 3.125rem 6.25rem;
+`;
 
 const Comment = styled.article`
   border-radius: 0.1rem;
@@ -250,17 +253,17 @@ const UserName = styled.span`
 `;
 
 const ComposeForm = styled.form`
-  background-image: -webkit-linear-gradient(
-    45deg,
-    rgb(200, 25, 38) 30%,
-    rgb(239, 110, 27) 70%
-  );
   border-radius: 0.3rem;
   box-sizing: border-box;
-  margin-bottom: 2rem;
+  border: 0.5px solid rgb(230, 227, 227);
   padding: 1rem;
-  color: #ffffff;
+  width: 80%;
+  margin: 2rem auto;
   font-weight: 600;
+  box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+  -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+  -moz-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+  border-radius: 10px;
 `;
 
 const FormWrapper = styled.article`
@@ -270,7 +273,7 @@ const FormWrapper = styled.article`
 
 const FormTitle = styled.h2`
   font-size: 1.2rem;
-  margin-top: 5vh;
+  margin-bottom: 1rem;
 `;
 
 const FormDesc = styled.p`
@@ -282,10 +285,11 @@ const FormLabel = styled.label``;
 
 const Content = styled.textarea`
   font-size: 1.25rem;
-  height: 10vh;
+  height: 14vh;
   padding: 1.25rem;
   color: #000000;
   border: none;
+  background-color: #fff;
   margin-bottom: 1rem;
   border-radius: 0.2rem;
   &:focus {
@@ -293,20 +297,14 @@ const Content = styled.textarea`
   }
 `;
 
-const CommentScore = styled.input`
-  width: 5rem;
+const CommentButton = styled.button`
+  width: 10rem;
+  margin-top: 1rem;
+  border: none;
+  align-self: end;
   padding: 1rem;
-  color: #000000;
+  background-color: #1896ff;
+  color: #eff8ff;
+  font-weight: 600;
+  cursor: pointer;
 `;
-
-// const Button = styled.button`
-//   width: 10rem;
-//   margin-top: 1rem;
-//   border: none;
-//   alighn-self: end;
-//   padding: 1rem;
-//   background-color: #000000;
-//   color: #ffffff;
-//   font-weight: 600;
-//   cursor: pointer;
-// `;
