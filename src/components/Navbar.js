@@ -51,8 +51,11 @@ const Navbar = () => {
           <NavLink to="/settings">
             <MenuItems>
               <Profile
-                src="https://e7.pngegg.com/pngimages/1011/702/png-clipart-computer-icons-graphics-iconfinder-administrator-icon-monochrome-black.png"
-                alt="adminImage"
+                src={
+                  (user && user.profile?.image) ||
+                  "https://e7.pngegg.com/pngimages/1011/702/png-clipart-computer-icons-graphics-iconfinder-administrator-icon-monochrome-black.png"
+                }
+                alt="profile"
               />
             </MenuItems>
           </NavLink>

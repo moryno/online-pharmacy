@@ -2,9 +2,67 @@ import { DriveFolderUploadOutlined } from "@mui/icons-material";
 import React, { useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+
+import app from "../Helpers/firebase";
+import request from "../Helpers/requestMethods";
+import { useSelector } from "react-redux";
 
 const Settings = () => {
   const [file, setFile] = useState("");
+  const user = useSelector((state) => state.user.currentUser);
+
+  const [input, setInputs] = useState({});
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setInputs({ ...input, [name]: value, user: user });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const fileName = new Date().getTime() + file.name;
+    const storage = getStorage(app);
+    const storageRef = ref(storage, fileName);
+
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+        }
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          const profile = { ...input, image: downloadURL };
+          try {
+            request.post("/profiles", profile);
+          } catch (error) {
+            console.log(error);
+          }
+        });
+      }
+    );
+  };
+
   return (
     <Container>
       <Navbar />
@@ -25,7 +83,7 @@ const Settings = () => {
             />
           </Left>
           <Right>
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <FormInput>
                 <Label htmlFor="image">
                   Image:{" "}
@@ -40,11 +98,21 @@ const Settings = () => {
               </FormInput>
               <FormInput>
                 <Label>Phone</Label>
-                <Input type="text" placeholder="Phone" />
+                <Input
+                  type="text"
+                  name="phone"
+                  onChange={handleChange}
+                  placeholder="Phone"
+                />
               </FormInput>
               <FormInput>
                 <Label>Address</Label>
-                <Input type="text" placeholder="Address" />
+                <Input
+                  type="text"
+                  name="address"
+                  onChange={handleChange}
+                  placeholder="Address"
+                />
               </FormInput>
 
               <Button>Send</Button>
