@@ -18,7 +18,7 @@ import { userColumns, productColumns } from "../Helpers/datatablesource";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
-  const admin = user?.user.profile.is_admin;
+  const admin = user?.user.profile?.is_admin;
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
 

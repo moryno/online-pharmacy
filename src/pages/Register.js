@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import request from "../Helpers/requestMethods";
 
 const Register = () => {
+  const [inputs, setInputs] = useState({});
+  const [confirmPassword, setConfirmPass] = useState("");
+  const [error, setError] = useState(false);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setInputs({ ...inputs, [name]: value });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError(false);
+
+    try {
+      if (inputs.password === confirmPassword) {
+        const { data } = await request.post("/register", inputs);
+        data && window.location.replace("/login");
+      } else {
+        setError(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <Left>
@@ -23,10 +49,11 @@ const Register = () => {
             begin setting up your profile.
           </Description>
           <Hr />
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Input
               id="firstName"
               name="first_name"
+              onChange={handleChange}
               placeholder="First Name"
               type="text"
             />
@@ -34,6 +61,7 @@ const Register = () => {
             <Input
               id="lastName"
               name="last_name"
+              onChange={handleChange}
               placeholder="Last Name"
               type="text"
             />
@@ -41,15 +69,23 @@ const Register = () => {
             <Input
               id="username"
               name="username"
+              onChange={handleChange}
               placeholder="Username"
               type="text"
             />
 
-            <Input id="email" name="email" placeholder="Email" type="email" />
+            <Input
+              id="email"
+              name="email"
+              onChange={handleChange}
+              placeholder="Email"
+              type="email"
+            />
 
             <Input
               id="password"
               name="password"
+              onChange={handleChange}
               placeholder="Password"
               type="password"
             />
@@ -57,6 +93,7 @@ const Register = () => {
             <Input
               id="confirmPassword"
               name="confirm_password"
+              onChange={(event) => setConfirmPass(event.target.value)}
               placeholder="Confirm Password"
               type="password"
             />
@@ -65,6 +102,7 @@ const Register = () => {
               data in accordance with the <b>PRIVACY POLICY</b>
             </Agreement>
             <Button>Register</Button>
+            {error && <Error>Password does not match!</Error>}
           </Form>
           <Login>
             Already have an account?
@@ -189,4 +227,11 @@ const Login = styled.span``;
 const Span = styled.span`
   color: #e95568;
   cursor: pointer;
+`;
+
+const Error = styled.span`
+  color: red;
+  position: absolute;
+  bottom: 10%;
+  left: 43%;
 `;
