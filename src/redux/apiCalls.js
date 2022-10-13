@@ -14,14 +14,18 @@ import {
   updateProductSuccess,
   updateProductFailure,
 } from "./productSlice";
+import { setupLogin } from "../Helpers/auth.js";
+import { logoutFunc } from "../Helpers/auth.js";
 
 export const login = async (dispatch, user) => {
   dispatch(loginStart());
   try {
     const { data } = await request.post("/login", user);
+    setupLogin(data?.token);
     dispatch(loginSuccess(data));
   } catch (error) {
     dispatch(loginFailure());
+    logoutFunc();
   }
 };
 

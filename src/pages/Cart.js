@@ -25,7 +25,7 @@ export const Cart = () => {
   const [quantity, setQuantity] = useState(1);
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const currentUser = useSelector((state) => state.user?.currentUser?.user);
   const [orderId, setOrderId] = useState(null);
   const dispatch = useDispatch();
 

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { logoutFunc } from "../Helpers/auth.js";
 
 const userSlice = createSlice({
   name: "user",
@@ -21,10 +22,22 @@ const userSlice = createSlice({
     },
     logout: (state) => {
       state.currentUser = null;
+      logoutFunc();
+    },
+    updateUserProfile: (state, action) => {
+      state.currentUser.user = {
+        ...state.currentUser.user,
+        profile: action.payload,
+      };
     },
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout } =
-  userSlice.actions;
+export const {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+  logout,
+  updateUserProfile,
+} = userSlice.actions;
 export default userSlice.reducer;

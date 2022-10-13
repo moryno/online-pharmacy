@@ -11,9 +11,11 @@ import {
 
 import app from "../Helpers/firebase";
 import request from "../Helpers/requestMethods";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserProfile } from "../redux/userSlice";
 
 const Settings = () => {
+  const dispatch = useDispatch();
   const [file, setFile] = useState("");
   const user = useSelector((state) => state.user.currentUser);
   const [input, setInputs] = useState({});
@@ -23,7 +25,7 @@ const Settings = () => {
     setInputs({ ...input, [name]: value, user: user });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const fileName = new Date().getTime() + file.name;
     const storage = getStorage(app);
@@ -52,10 +54,12 @@ const Settings = () => {
         // Handle unsuccessful uploads
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
           const profile = { ...input, image: downloadURL };
           try {
-            request.post("/profiles", profile);
+            const { data } = await request.post("/profiles", profile);
+            console.log(data);
+            dispatch(updateUserProfile(data));
           } catch (error) {
             console.log(error);
           }
