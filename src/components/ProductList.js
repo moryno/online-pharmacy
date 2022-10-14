@@ -46,7 +46,6 @@ const ProductList = ({ filters, category, sort }) => {
 export default ProductList;
 
 const Container = styled.main`
-  padding: 3.125rem 12.5rem;
   display: flex;
   color: #1e144f;
   align-items: center;
