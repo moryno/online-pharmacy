@@ -7,7 +7,6 @@ import { mobile } from "../responsive";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import request from "../Helpers/requestMethods";
-
 import { addProduct } from "../redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,7 +16,7 @@ export const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [comment, setComment] = useState({});
 
-  const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.user?.currentUser?.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,7 +29,7 @@ export const Product = () => {
       }
     };
     getProduct();
-  }, [id, product]);
+  }, [id]);
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -45,7 +44,7 @@ export const Product = () => {
       ...comment,
       [name]: value,
       product_id: id,
-      user_id: user.id,
+      user: user,
     });
   };
 
@@ -61,6 +60,8 @@ export const Product = () => {
   const handleClick = () => {
     dispatch(addProduct({ ...product, quantity }));
   };
+  console.log(product.reviews);
+
   return (
     <Container>
       <Navbar />
@@ -92,17 +93,17 @@ export const Product = () => {
       </Wrapper>
       <CommentContainer>
         <CommentTitle>{product.reviews?.length} Reviews</CommentTitle>
-        {
-          <Comment>
+        {product.reviews?.map((review) => (
+          <Comment key={review.id}>
             <CommentHeader>
-              <UserName>moryno</UserName>
+              <UserName>{review?.username}</UserName>
               <CommentDate>
-                {/* {new window.Date(review.created_at).toDateString()} */}
+                {new window.Date(review.created_at).toDateString()}
               </CommentDate>
             </CommentHeader>
-            <Post>llllllllll</Post>
+            <Post>{review.title}</Post>
           </Comment>
-        }
+        ))}
       </CommentContainer>
 
       {user ? (
@@ -116,7 +117,7 @@ export const Product = () => {
             <FormLabel htmlFor="content">Comment *</FormLabel>
             <Content
               id="content"
-              name="reviews"
+              name="title"
               type="text"
               onChange={handleChange}
             />
@@ -172,6 +173,8 @@ const Title = styled.h1`
 
 const Desc = styled.p`
   margin: 20px 0;
+  width: 70%;
+  line-height: 1.5;
 `;
 
 const Price = styled.span`
