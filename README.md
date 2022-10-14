@@ -29,7 +29,7 @@ This is a _medicine_ website with a front-end made using React and a backend mad
 
 Rails helped in creating api endpoints that could be used by React frontend to get, post, delete and update the products and its associates.
 
-The front-end is diployed in [vercel](https://vercel.com/) hosting service while the Sinatra is hosted in [heroku](https://heroku.com/).
+The front-end is diployed in [vercel](https://vercel.com/) hosting service while the Rails backend is hosted in [heroku](https://heroku.com/).
 
 ## Features
 
@@ -90,7 +90,7 @@ To enhance or contribute on the existing project, follow these steps:
 
 ---
 
-\- Click this link to see the live website [eventguide](https://event-guide-jvquku5fg-moryno.vercel.app/)
+\- Click this link to see the live website [eventguide](https://medicine-phi.vercel.app/)
 
 ## License
 
