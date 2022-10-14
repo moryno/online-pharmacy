@@ -90,7 +90,7 @@ To enhance or contribute on the existing project, follow these steps:
 
 ---
 
-\- Click this link to see the live website [eventguide](https://medicine-phi.vercel.app/)
+\- Click this link to see the live website [medicine](https://medicine-phi.vercel.app/)
 
 ## License
 
