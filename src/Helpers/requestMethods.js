@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://boiling-retreat-54504.herokuapp.com/";
 // "https://boiling-retreat-54504.herokuapp.com/"
 
 let request = axios.create({ baseURL: BASE_URL });
