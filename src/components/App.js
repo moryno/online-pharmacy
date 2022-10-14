@@ -52,6 +52,7 @@ function App() {
                   element={
                     <List
                       data={products}
+                      title="Add New User"
                       type="users"
                       columns={productColumns}
                     />
@@ -72,6 +73,7 @@ function App() {
                   element={
                     <List
                       data={products}
+                      title="Add New Product"
                       columns={productColumns}
                       type="products"
                     />

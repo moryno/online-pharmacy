@@ -4,13 +4,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { deleteProduct } from "../redux/apiCalls";
 
-const DataTable = ({ data, columns, type }) => {
+const DataTable = ({ data, columns, type, title }) => {
   const dispatch = useDispatch();
   const handleDelete = (id) => {
     deleteProduct(id, dispatch);
   };
 
   let actionColumn;
+  let link;
+
   switch (type) {
     case "users":
       actionColumn = [
@@ -59,11 +61,23 @@ const DataTable = ({ data, columns, type }) => {
       break;
   }
 
+  switch (type) {
+    case "users":
+      link = `/admin/users/new`;
+      break;
+    case "products":
+      link = `/admin/products/new`;
+      break;
+
+    default:
+      break;
+  }
+
   return (
     <Container>
       <TitleContainer>
-        Add New User
-        <Link to="/admin/users/new">
+        {title}
+        <Link to={link}>
           <LinkText>Add New</LinkText>
         </Link>
       </TitleContainer>
