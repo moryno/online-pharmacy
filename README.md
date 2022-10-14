@@ -4,7 +4,7 @@
 
 ### _medicine_ landing page
 
-![Medicine](./src/images/eventguide.png)
+![Medicine](./src/assests/medication-land.png)
 
 ## Table of Content
 
