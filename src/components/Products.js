@@ -24,25 +24,29 @@ const Product = ({ product }) => {
 export default Product;
 
 const Card = styled.article`
-  width: 22%;
   margin-bottom: 1rem;
   border-radius: 5px;
   color: #1e144f;
   background-color: #fff;
+  width: 24%;
+
+  overflow: hidden;
 `;
 
 const ImageContainer = styled.article`
   width: 100%;
-  height: 40vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
+  height: 50vh;
+  position: relative;
+  cursor: pointer;
+  border-radius: 0.2375rem;
+  overflow: hidden;
 `;
 
 const Image = styled.img`
-  max-width: 100%;
-  height: 100%;
+  width: 100%;
   object-fit: cover;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -55,19 +59,25 @@ const Category = styled.article`
 const CategoryTitle = styled.span`
   font-size: 0.8125rem;
   font-family: "Varela Round", sans-serif;
-  line-height: 1.25rem;
   margin-top: 1rem;
-  margin-right: 0.625rem;
-  cursor: pointer;
+  font-size: 1rem;
+  color: darkgray;
+  line-height: 1.25rem;
 `;
 
 const InfoContainer = styled.article`
   padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
   box-sizing: border-box;
 `;
 
 const Title = styled.p`
   margin-bottom: 0.5rem;
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 700;
+  cursor: pointer;
 `;
 
 const Price = styled.span`
