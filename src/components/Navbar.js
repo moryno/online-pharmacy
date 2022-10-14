@@ -1,14 +1,18 @@
 import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Medication from "../assests/images/medication.png";
 import { logout } from "../redux/userSlice";
 
-const Navbar = () => {
+const Navbar = ({ search }) => {
   const quantity = useSelector((state) => state.cart.quantity);
   const user = useSelector((state) => state.user?.currentUser?.user);
+  const [input, setInput] = useState("");
+
+  // search(input);
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
@@ -29,7 +33,10 @@ const Navbar = () => {
           </NavLink>
         </Left>
         <Center>
-          <Input />
+          <Input
+            onChange={(event) => setInput(event.target.value)}
+            placeholder="Search..."
+          />
           <SearchContainer>
             <Search style={{ fontSize: "2rem" }} />
           </SearchContainer>

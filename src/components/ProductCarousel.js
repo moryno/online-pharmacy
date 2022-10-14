@@ -1,8 +1,9 @@
 import { ArrowBack, ArrowForward } from "@material-ui/icons";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const ProductCarousel = ({ sliderItems, title }) => {
+const ProductCarousel = ({ category, title, type }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const handleClick = (direction) => {
     if (direction === "left") {
@@ -11,6 +12,19 @@ const ProductCarousel = ({ sliderItems, title }) => {
       setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
     }
   };
+  let link;
+  switch (type) {
+    case "baby":
+      link = `/products/baby`;
+      break;
+    case "women":
+      link = `/products/women`;
+      break;
+
+    default:
+      break;
+  }
+
   return (
     <Container>
       <Top>
@@ -22,17 +36,19 @@ const ProductCarousel = ({ sliderItems, title }) => {
           <ArrowBack />
         </Arrow>
         <Wrapper slideIndex={slideIndex}>
-          {sliderItems.map((item) => (
-            <Slide key={item.id}>
-              <ImageContainer>
-                <Image src={item.img} alt="productImage" />
-              </ImageContainer>
-              <InfoContainer>
-                <SlideTitle>{item.title}</SlideTitle>
-                <Price>Ksh.1200</Price>
-                <Description>{item.description}</Description>
-              </InfoContainer>
-            </Slide>
+          {category.map((item) => (
+            <Link to={link}>
+              <Slide key={item.id}>
+                <ImageContainer>
+                  <Image src={item.image} alt="productImage" />
+                </ImageContainer>
+                <InfoContainer>
+                  <SlideTitle>{item.title}</SlideTitle>
+                  <Price>Ksh.1200</Price>
+                  <Description>{item.description}</Description>
+                </InfoContainer>
+              </Slide>
+            </Link>
           ))}
         </Wrapper>
         <Arrow direction={"right"} onClick={() => handleClick("right")}>
@@ -97,6 +113,7 @@ const ImageContainer = styled.article`
   align-items: center;
   justify-content: center;
   border-radius: 5px;
+  cursor: pointer;
 `;
 
 const Image = styled.img`
@@ -123,7 +140,7 @@ const Description = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 `;
 

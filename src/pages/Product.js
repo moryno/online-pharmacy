@@ -60,7 +60,6 @@ export const Product = () => {
   const handleClick = () => {
     dispatch(addProduct({ ...product, quantity }));
   };
-  console.log(product.reviews);
 
   return (
     <Container>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import request from "../Helpers/requestMethods";
 import Products from "./Products";
 
-const ProductList = ({ filters, category, sort }) => {
+const ProductList = ({ filters, category, input }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -32,6 +32,15 @@ const ProductList = ({ filters, category, sort }) => {
       );
     }
   }, [filters]);
+
+  const filteredProducts = products?.filter((product) => {
+    if (input === "") {
+      return product;
+    } else if (product.title?.toLowerCase().includes(input?.toLowerCase())) {
+      return product;
+    }
+  });
+
   return (
     <Container>
       <Wrapper>
