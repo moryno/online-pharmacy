@@ -1,5 +1,5 @@
 import { Badge } from "@material-ui/core";
-import { Search, ShoppingCartOutlined } from "@material-ui/icons";
+import { Dashboard, Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -9,7 +9,8 @@ import { logout } from "../redux/userSlice";
 
 const Navbar = ({ search }) => {
   const quantity = useSelector((state) => state.cart.quantity);
-  const user = useSelector((state) => state.user?.currentUser?.user);
+  const user = useSelector((state) => state.user.currentUser);
+  const admin = user?.user.profile?.is_admin;
   const [input, setInput] = useState("");
 
   // search(input);
@@ -66,18 +67,27 @@ const Navbar = ({ search }) => {
               />
             </MenuItems>
           </NavLink>
-          <NavLink to={"/cart"}>
-            <CartItem>
-              <Badge
-                badgeContent={quantity}
-                color="primary"
-                overlap="rectangular"
-              >
-                <ShoppingCartOutlined />
-              </Badge>
-              <Cart>Cart</Cart>
-            </CartItem>
-          </NavLink>
+          {admin ? (
+            <NavLink to="/admin">
+              <MenuItems>
+                <Dashboard />
+                <SignAccount>Dashboard</SignAccount>
+              </MenuItems>
+            </NavLink>
+          ) : (
+            <NavLink to={"/cart"}>
+              <CartItem>
+                <Badge
+                  badgeContent={quantity}
+                  color="primary"
+                  overlap="rectangular"
+                >
+                  <ShoppingCartOutlined />
+                </Badge>
+                <Cart>Cart</Cart>
+              </CartItem>
+            </NavLink>
+          )}
         </Right>
       </Wrapper>
     </Container>
