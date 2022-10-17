@@ -67,7 +67,29 @@ A user visiting this page would be able to see:
 
 - **React-circular-progressbar** - help in creating interactive progressbar in the admin dashboard.
 
-## _**Rails**_, _**Postgresql**_ helped in creating the database, the models, controllers, actions and the api endpoints to use in the client side.
+- _**Rails**_, _**Postgresql**_ helped in creating the database, the models, controllers, actions and the api endpoints to use in the client side.
+
+## Instructions
+
+### To have the admin privileges then you have to do the following.
+
+- If you are in the landing page and you are logged in the click on the signin buttton and that will take you to the login page.
+- If you are already signed in as a different user then signout the click on the signin button.
+- Enter **admin** as username and **123456** as the password and this will take you to the landing page.
+- You'll see a button labeled dashboard which you can click and this will send you to the admin dashboard.
+- While here you'll have access to the sidebar where you can view users and products.
+- Click on products and this will take you to a page with all the products filtered in 5 per page.
+- If you click on the **View** button on any product this will take you to a single page where you see more details about the product. It also provides you with a form where you can update the product.
+- In the procucts page at the top right corner there is a **Add New** button that will take you to a new page where you can create a new product.
+- Also in the products page you can delete a product by clicking the **Delete** button.
+- Clicking in the logo will take you back to the landing page.
+
+### To have the user privileges then you have to do the following.
+
+- In the landing page click the signin button at the navbar or the signup button in the filter component section.
+- This will take you to **register** page where you can enter your details.
+- After successfully login then you can click the profile avatar at navbar and this will take you to **settings** page where you can enter your profile details including image, address and phone number.
+- A user has privilege to leave a review in single product.
 
 ## Development
 

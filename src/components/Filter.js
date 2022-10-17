@@ -1,7 +1,9 @@
-import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const Filter = () => {
+  const user = useSelector((state) => state.user?.currentUser?.user);
   return (
     <Container>
       <Wrapper>
@@ -9,13 +11,23 @@ const Filter = () => {
           <DropDownContainer>
             <DropDownHeader>Categories</DropDownHeader>
             <DropDownList>
-              <ListItems>Desktop</ListItems>
-              <ListItems>Monitor</ListItems>
-              <ListItems>Graphics Card</ListItems>
-              <ListItems>Playstation</ListItems>
-              <ListItems>Case</ListItems>
-              <ListItems>Memory</ListItems>
-              <ListItems>Fan</ListItems>
+              <Link to="/products/baby">
+                <ListItems>Baby Care</ListItems>
+              </Link>
+              <Link to="/products/women">
+                <ListItems>Women</ListItems>
+              </Link>
+              <Link to="/products/skin care">
+                <ListItems>Skin Care</ListItems>
+              </Link>
+              <Link to="/products/cough">
+                <ListItems>Cough Medication</ListItems>
+              </Link>
+              <Link to="/products/disinfectant">
+                <ListItems>Disinfectant</ListItems>
+              </Link>
+              <ListItems>Family Care</ListItems>
+              <ListItems>Fitness</ListItems>
             </DropDownList>
           </DropDownContainer>
           <MenuItems>
@@ -25,18 +37,20 @@ const Filter = () => {
             <MenuTitle>About Us</MenuTitle>
           </MenuItems>
         </Left>
-        <Right>
-          <MenuItems>
-            <NavLink to="/register">
-              <MenuTitle>Sign up</MenuTitle>
-            </NavLink>
-          </MenuItems>
-          <MenuItems>
-            <NavLink to="/login">
-              <SignIn>Sign in</SignIn>
-            </NavLink>
-          </MenuItems>
-        </Right>
+        {!user && (
+          <Right>
+            <MenuItems>
+              <NavLink to="/register">
+                <MenuTitle>Sign up</MenuTitle>
+              </NavLink>
+            </MenuItems>
+            <MenuItems>
+              <NavLink to="/login">
+                <SignIn>Sign in</SignIn>
+              </NavLink>
+            </MenuItems>
+          </Right>
+        )}
       </Wrapper>
     </Container>
   );
@@ -82,7 +96,6 @@ const SignIn = styled.span`
 const DropDownList = styled.ul`
   background-color: #f6f7fb;
   display: none;
-
   position: absolute;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -115,7 +128,7 @@ const ListItems = styled.li`
   font-weight: 200;
   padding: 10px 16px;
   cursor: pointer;
-
+  min-width: 160px;
   display: block;
   &:hover {
     background-color: white;
