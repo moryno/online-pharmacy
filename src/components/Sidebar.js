@@ -21,7 +21,7 @@ const Sidebar = () => {
     <Container>
       <Top>
         <Image src={Medication} />
-        <Link to="/admin">
+        <Link to="/">
           <Logo>
             med<FirstSpan>ic</FirstSpan>
             <SecondSpan>ine</SecondSpan>
@@ -31,11 +31,13 @@ const Sidebar = () => {
       <Hr />
       <Center>
         <List>
-          <Title>MAIN</Title>
-          <Item>
-            <Dashboard />
-            <ItemSpan>Dashboard</ItemSpan>
-          </Item>
+          <Link to="/admin">
+            <Title>MAIN</Title>
+            <Item>
+              <Dashboard />
+              <ItemSpan>Dashboard</ItemSpan>
+            </Item>{" "}
+          </Link>
           <Title>LISTS</Title>
           <Link to="/admin/users">
             <Item>
