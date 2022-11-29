@@ -58,7 +58,7 @@ const Settings = () => {
           const profile = { ...input, image: downloadURL };
           try {
             const { data } = await request.post("/profiles", profile);
-            console.log(data);
+
             dispatch(updateUserProfile(data));
           } catch (error) {
             console.log(error);

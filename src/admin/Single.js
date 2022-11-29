@@ -71,7 +71,7 @@ const Single = ({ inputs, title }) => {
       }
     );
   };
-  console.log(input);
+
   return (
     <Container>
       <Sidebar />

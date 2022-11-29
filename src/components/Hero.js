@@ -1,6 +1,7 @@
 import { Search } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
+import Delivery from "../assests/images/delivery.png";
 
 const Hero = () => {
   return (
@@ -29,10 +30,7 @@ const Hero = () => {
           </StatsContainer>
         </InfoContainer>
         <ImageContainer>
-          <Image
-            src="https://3xo4di2xpixr3oltj74229w9-wpengine.netdna-ssl.com/wp-content/uploads/2021/06/medicine-pharmacy-main.png"
-            alt="heroImg"
-          />
+          <Image src={Delivery} alt="heroImg" />
           <DeliverInfoContainer>
             <DeliverText>🛵 Delivery with</DeliverText>
             <DeliverText>🕐 30 minutes</DeliverText>
